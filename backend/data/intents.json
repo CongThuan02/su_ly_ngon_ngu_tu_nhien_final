@@ -1,0 +1,294 @@
+{
+  "intents": [
+    {
+      "tag": "chao_hoi",
+      "patterns": [
+        "xin chào",
+        "chào bạn",
+        "hello",
+        "hi",
+        "hey",
+        "chào buổi sáng",
+        "chào buổi chiều",
+        "chào buổi tối",
+        "bạn ơi",
+        "ê",
+        "có ai không",
+        "chào nhé",
+        "lô",
+        "hê lô",
+        "chào app"
+      ],
+      "responses": [
+        "Xin chào! Tôi có thể giúp gì cho bạn?",
+        "Chào bạn! Bạn cần hỗ trợ gì về công việc?",
+        "Hello! Hãy cho tôi biết bạn cần gì nhé!",
+        "Chào bạn! Tôi sẵn sàng giúp bạn quản lý công việc."
+      ]
+    },
+    {
+      "tag": "tam_biet",
+      "patterns": [
+        "tạm biệt",
+        "bye",
+        "bye bye",
+        "hẹn gặp lại",
+        "tôi đi đây",
+        "chào nhé",
+        "goodbye",
+        "gặp lại sau",
+        "thôi nhé",
+        "cảm ơn tạm biệt"
+      ],
+      "responses": [
+        "Tạm biệt! Chúc bạn làm việc hiệu quả!",
+        "Hẹn gặp lại! Đừng quên hoàn thành công việc nhé!",
+        "Bye bye! Tôi luôn ở đây khi bạn cần.",
+        "Tạm biệt bạn! Chúc một ngày tốt lành!"
+      ]
+    },
+    {
+      "tag": "cam_on",
+      "patterns": [
+        "cảm ơn",
+        "cảm ơn bạn",
+        "thanks",
+        "thank you",
+        "cám ơn nhiều",
+        "cảm ơn nhé",
+        "tuyệt vời cảm ơn",
+        "ok cảm ơn",
+        "được rồi cảm ơn"
+      ],
+      "responses": [
+        "Không có gì! Tôi luôn sẵn sàng giúp bạn!",
+        "Rất vui được giúp bạn!",
+        "Không có chi! Cần gì cứ hỏi nhé!"
+      ]
+    },
+    {
+      "tag": "them_cong_viec",
+      "patterns": [
+        "thêm công việc",
+        "tạo công việc mới",
+        "thêm việc",
+        "tôi muốn thêm công việc",
+        "thêm task",
+        "tạo task mới",
+        "tạo việc mới",
+        "thêm một công việc",
+        "tôi cần thêm việc",
+        "thêm nhiệm vụ",
+        "tạo nhiệm vụ",
+        "ghi lại công việc",
+        "thêm cho tôi công việc",
+        "tạo cho tôi một việc",
+        "nhờ thêm công việc",
+        "thêm việc cần làm",
+        "tôi có việc mới",
+        "ghi nhớ công việc",
+        "lưu công việc",
+        "thêm lịch làm việc",
+        "tạo công việc",
+        "add task",
+        "thêm việc mới cho tôi",
+        "tôi muốn tạo task",
+        "cho tôi thêm việc"
+      ],
+      "responses": [
+        "Bạn muốn thêm công việc gì? Hãy cho tôi biết tên công việc.",
+        "Được rồi! Công việc mới là gì?",
+        "Ok! Hãy cho tôi biết chi tiết công việc bạn muốn thêm.",
+        "Tôi sẵn sàng ghi nhận công việc mới. Tên công việc là gì?"
+      ]
+    },
+    {
+      "tag": "xoa_cong_viec",
+      "patterns": [
+        "xóa công việc",
+        "xóa việc",
+        "bỏ công việc",
+        "xóa task",
+        "hủy công việc",
+        "tôi muốn xóa công việc",
+        "xóa nhiệm vụ",
+        "bỏ nhiệm vụ",
+        "xóa bỏ công việc",
+        "hủy bỏ công việc",
+        "loại bỏ công việc",
+        "xóa đi công việc",
+        "xóa việc cần làm",
+        "tôi không cần việc này nữa",
+        "bỏ task này đi",
+        "xóa giúp tôi công việc",
+        "hủy task",
+        "remove task",
+        "delete task",
+        "xóa việc này"
+      ],
+      "responses": [
+        "Bạn muốn xóa công việc nào?",
+        "Hãy cho tôi biết tên công việc bạn muốn xóa.",
+        "Ok! Công việc nào cần xóa?",
+        "Được rồi, cho tôi biết công việc cần xóa nhé."
+      ]
+    },
+    {
+      "tag": "sua_cong_viec",
+      "patterns": [
+        "sửa công việc",
+        "chỉnh sửa công việc",
+        "cập nhật công việc",
+        "thay đổi công việc",
+        "sửa task",
+        "edit task",
+        "update task",
+        "tôi muốn sửa công việc",
+        "chỉnh lại công việc",
+        "đổi tên công việc",
+        "sửa lại nhiệm vụ",
+        "cập nhật nhiệm vụ",
+        "thay đổi nội dung công việc",
+        "sửa thông tin công việc",
+        "chỉnh sửa task",
+        "tôi cần sửa việc",
+        "đổi lại công việc",
+        "sửa giúp tôi công việc",
+        "cập nhật lại task",
+        "tôi muốn thay đổi việc"
+      ],
+      "responses": [
+        "Bạn muốn sửa công việc nào?",
+        "Hãy cho tôi biết công việc cần chỉnh sửa.",
+        "Ok! Công việc nào cần cập nhật?",
+        "Được rồi, cho tôi biết bạn muốn sửa gì nhé."
+      ]
+    },
+    {
+      "tag": "xem_cong_viec",
+      "patterns": [
+        "xem công việc",
+        "danh sách công việc",
+        "liệt kê công việc",
+        "cho tôi xem công việc",
+        "tôi có những việc gì",
+        "hôm nay tôi có gì",
+        "xem danh sách",
+        "xem task",
+        "list task",
+        "hiển thị công việc",
+        "công việc của tôi",
+        "việc của tôi",
+        "tôi cần làm gì",
+        "có những việc nào",
+        "cho xem việc cần làm",
+        "xem tất cả công việc",
+        "show task",
+        "xem nhiệm vụ",
+        "liệt kê nhiệm vụ",
+        "tôi có bao nhiêu việc",
+        "xem hết công việc",
+        "cho tôi biết công việc",
+        "hôm nay làm gì",
+        "còn việc gì chưa làm",
+        "xem việc chưa xong"
+      ],
+      "responses": [
+        "Đây là danh sách công việc của bạn:",
+        "Để tôi xem danh sách công việc cho bạn.",
+        "Ok! Đây là các công việc hiện tại:",
+        "Tôi sẽ hiển thị danh sách công việc cho bạn."
+      ]
+    },
+    {
+      "tag": "hoan_thanh_cong_viec",
+      "patterns": [
+        "hoàn thành công việc",
+        "đánh dấu hoàn thành",
+        "xong rồi",
+        "tôi đã xong",
+        "đã hoàn thành",
+        "việc này xong rồi",
+        "hoàn tất công việc",
+        "done",
+        "đã làm xong",
+        "complete task",
+        "tôi đã hoàn thành",
+        "đánh dấu xong",
+        "việc đã xong",
+        "tôi làm xong rồi",
+        "hoàn thành task",
+        "finish task",
+        "đã xong việc",
+        "đánh dấu đã làm",
+        "tôi hoàn thành rồi",
+        "mark done",
+        "xong việc rồi",
+        "công việc đã hoàn tất"
+      ],
+      "responses": [
+        "Tuyệt vời! Công việc nào đã hoàn thành?",
+        "Chúc mừng! Hãy cho tôi biết công việc đã xong.",
+        "Tốt lắm! Bạn muốn đánh dấu hoàn thành công việc nào?",
+        "Ok! Cho tôi biết tên công việc đã hoàn thành nhé."
+      ]
+    },
+    {
+      "tag": "nhac_nho",
+      "patterns": [
+        "nhắc nhở tôi",
+        "đặt nhắc nhở",
+        "nhắc tôi",
+        "tạo nhắc nhở",
+        "nhắc việc",
+        "đặt lời nhắc",
+        "reminder",
+        "set reminder",
+        "nhắc tôi lúc",
+        "nhắc nhở lúc",
+        "hẹn giờ nhắc",
+        "nhắc tôi vào",
+        "đặt hẹn nhắc nhở",
+        "tôi muốn được nhắc",
+        "nhắc giúp tôi",
+        "tạo lời nhắc",
+        "đặt báo thức công việc",
+        "nhắc tôi làm",
+        "nhớ nhắc tôi",
+        "hẹn nhắc việc"
+      ],
+      "responses": [
+        "Bạn muốn được nhắc nhở về việc gì và vào lúc nào?",
+        "Ok! Hãy cho tôi biết công việc và thời gian nhắc nhở.",
+        "Tôi sẽ nhắc bạn! Cho tôi biết chi tiết nhé.",
+        "Được rồi! Công việc gì và khi nào cần nhắc?"
+      ]
+    },
+    {
+      "tag": "hoi_trang_thai",
+      "patterns": [
+        "tình trạng công việc",
+        "tiến độ công việc",
+        "công việc thế nào rồi",
+        "bao nhiêu việc chưa xong",
+        "bao nhiêu việc đã xong",
+        "trạng thái công việc",
+        "status",
+        "task status",
+        "tổng kết công việc",
+        "thống kê công việc",
+        "tôi làm được bao nhiêu",
+        "còn bao nhiêu việc",
+        "tiến độ thế nào",
+        "báo cáo công việc",
+        "tình hình công việc"
+      ],
+      "responses": [
+        "Để tôi kiểm tra tình trạng công việc cho bạn.",
+        "Ok! Đây là thống kê công việc của bạn:",
+        "Tôi sẽ tổng kết tình hình công việc cho bạn.",
+        "Để tôi xem tiến độ công việc của bạn nhé."
+      ]
+    }
+  ]
+}

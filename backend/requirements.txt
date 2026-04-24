@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+torch
+transformers
+underthesea
+numpy
+pydantic
+firebase-admin
+python-dotenv
