@@ -145,7 +145,11 @@ TASK_TRIGGERS = {
 }
 
 # Các từ nối thừa cần loại bỏ
-FILLER_WORDS = ["là:", "là", ":", "về việc", "về", "cho tôi", "giúp tôi", "việc", "đi"]
+FILLER_WORDS = ["là:", "là", ":", "về việc", "về", "cho tôi", "giúp tôi", "việc"]
+GENERIC_TASK_NAMES = {
+    "mới", "công việc mới", "task mới", "việc mới", "một công việc", "một việc",
+    "một task", "công việc", "task", "việc",
+}
 
 
 def extract_entities(text: str, intent: str) -> dict:
@@ -156,6 +160,8 @@ def extract_entities(text: str, intent: str) -> dict:
 
     # === Trích xuất thời gian ===
     time_patterns = [
+        r"((?:ngày\s*)?\d{1,2}[/-]\d{1,2}(?:[/-]\d{2,4})?)",
+        r"(ngày\s+\d{1,2})(?![/-])",
         r"(?:lúc|vào|vào lúc)\s+(\d{1,2}\s*(?:giờ|h|:)\s*\d{0,2}\s*(?:sáng|chiều|tối|phút)?)",
         r"(\d{1,2}\s*(?:giờ|h|:)\s*\d{0,2}\s*(?:sáng|chiều|tối|phút)?)",
         r"(ngày mai|hôm nay|hôm qua|chiều nay|sáng mai|tối nay|tuần sau|tháng sau)",
@@ -170,7 +176,7 @@ def extract_entities(text: str, intent: str) -> dict:
             break
 
     # === Trích xuất trạng thái lọc (cho list_tasks) ===
-    if intent == "list_tasks":
+    if intent in {"list_tasks", "task_today", "task_upcoming"}:
         completed_keywords = ["đã hoàn thành", "đã xong", "hoàn thành", "đã làm xong", "completed", "done"]
         pending_keywords = ["chưa hoàn thành", "chưa xong", "chưa làm", "chưa bắt đầu", "pending", "chưa done"]
         for kw in pending_keywords:
@@ -196,7 +202,11 @@ def extract_entities(text: str, intent: str) -> dict:
                     after = after[len(filler):].strip()
                 elif after == filler:
                     after = ""
-            if after:
+            after = re.sub(r"^((?:ngày\s*)?\d{1,2}[/-]\d{1,2}(?:[/-]\d{2,4})?)\s+", "", after).strip()
+            after = re.sub(r"^(ngày\s+\d{1,2})(?![/-])\s+", "", after).strip()
+            after = re.sub(r"^(hôm nay|ngày mai|hôm qua|chiều nay|sáng mai|tối nay|tuần sau|tháng sau)\s+", "", after).strip()
+            after = re.sub(r"\s+(cho|vào|lúc|là)$", "", after).strip()
+            if after and after not in GENERIC_TASK_NAMES:
                 entities["task_name"] = after
             break
 

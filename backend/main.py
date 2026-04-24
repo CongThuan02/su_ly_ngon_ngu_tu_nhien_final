@@ -11,6 +11,7 @@ import database as db
 # ============ Globals ============
 chatbot: Chatbot | None = None
 pending_actions: dict[str, dict] = {}
+waiting_for: dict[str, dict] = {}
 
 
 # ============ Lifespan ============
@@ -74,6 +75,95 @@ CONFIRM_YES = {"có", "co", "yes", "ừ", "ok", "đồng ý", "chắc chắn", "
 CONFIRM_NO = {"không", "no", "thôi", "hủy", "cancel", "đừng", "không đâu", "thôi đi"}
 
 
+def _filter_tasks(tasks: list[dict], status_filter: str | None = None, time_filter: str | None = None) -> list[dict]:
+    filtered = tasks
+    if status_filter == "completed":
+        filtered = [t for t in filtered if t["is_completed"]]
+    elif status_filter == "pending":
+        filtered = [t for t in filtered if not t["is_completed"]]
+
+    if time_filter:
+        normalized_time = time_filter.strip().lower()
+        filtered = [
+            t for t in filtered
+            if (t.get("due_time") or "").strip().lower() == normalized_time
+        ]
+    return filtered
+
+
+def _build_followup_response(intent: str, user_id: str, task_name: str, carried_entities: dict | None = None) -> dict:
+    carried_entities = carried_entities or {}
+    entities = dict(carried_entities)
+    entities["task_name"] = task_name
+
+    if intent == "create_task":
+        task = db.create_task(task_name, "", entities.get("time"), user_id)
+        return {
+            "intent": intent,
+            "confidence": 1.0,
+            "response": f"Đã tạo công việc '{task_name}'.",
+            "entities": entities,
+            "source": "follow_up",
+            "tasks": [task],
+        }
+
+    if intent == "status_update":
+        task = db.find_task_by_name(user_id, task_name)
+        if task:
+            db.complete_task(task["id"])
+            return {
+                "intent": intent,
+                "confidence": 1.0,
+                "response": f"Đã đánh dấu '{task['title']}' hoàn thành!",
+                "entities": entities,
+                "source": "follow_up",
+                "tasks": [db.get_task_by_id(task["id"])],
+            }
+        return {
+            "intent": intent,
+            "confidence": 1.0,
+            "response": f"Không tìm thấy công việc '{task_name}'.",
+            "entities": entities,
+            "source": "follow_up",
+        }
+
+    if intent == "delete_task":
+        task = db.find_task_by_name(user_id, task_name)
+        if task:
+            pending_actions[user_id] = {"type": "delete", "task_id": task["id"], "task_name": task["title"]}
+            return {
+                "intent": intent,
+                "confidence": 1.0,
+                "response": f"Bạn có chắc muốn xóa '{task['title']}' không? (Có/Không)",
+                "entities": entities,
+                "source": "follow_up",
+            }
+        return {
+            "intent": intent,
+            "confidence": 1.0,
+            "response": f"Không tìm thấy công việc '{task_name}'.",
+            "entities": entities,
+            "source": "follow_up",
+        }
+
+    if intent == "update_task":
+        return {
+            "intent": intent,
+            "confidence": 1.0,
+            "response": f"Bạn muốn sửa gì cho '{task_name}'?",
+            "entities": entities,
+            "source": "follow_up",
+        }
+
+    return {
+        "intent": intent,
+        "confidence": 1.0,
+        "response": "Đã ghi nhận.",
+        "entities": entities,
+        "source": "follow_up",
+    }
+
+
 # ============ Chat Endpoint ============
 @app.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
@@ -95,6 +185,16 @@ async def chat(request: ChatRequest):
                                 response="Đã hủy. Không thay đổi gì.")
         del pending_actions[user_id]
 
+    # === Xử lý chờ người dùng nhập tên task ===
+    if user_id in waiting_for:
+        followup = waiting_for.pop(user_id)
+        return ChatResponse(**_build_followup_response(
+            followup["intent"],
+            user_id,
+            request.message.strip(),
+            followup.get("entities"),
+        ))
+
     result = chatbot.get_response(request.message)
     intent = result["intent"]
 
@@ -113,30 +213,55 @@ async def chat(request: ChatRequest):
             task = db.create_task(task_name, "", result["entities"].get("time"), user_id)
             response_data["response"] = f"Đã tạo công việc '{task_name}'."
             response_data["tasks"] = [task]
+        else:
+            waiting_for[user_id] = {"intent": intent, "entities": result.get("entities", {})}
+            if result["entities"].get("time"):
+                response_data["response"] = f"Bạn muốn tạo công việc gì cho {result['entities']['time']}?"
+            else:
+                response_data["response"] = "Bạn muốn thêm công việc gì?"
 
     elif intent == "list_tasks":
         all_tasks = db.get_tasks_by_user(user_id)
         status_filter = result["entities"].get("status")
+        time_filter = result["entities"].get("time")
+        tasks = _filter_tasks(all_tasks, status_filter, time_filter)
         if status_filter == "completed":
-            tasks = [t for t in all_tasks if t["is_completed"]]
             label = "đã hoàn thành"
         elif status_filter == "pending":
-            tasks = [t for t in all_tasks if not t["is_completed"]]
             label = "chưa hoàn thành"
         else:
-            tasks = all_tasks
             label = ""
         response_data["tasks"] = tasks
         if not tasks:
-            if status_filter:
+            if time_filter:
+                response_data["response"] = f"Không có công việc nào cho {time_filter}."
+            elif status_filter:
                 response_data["response"] = f"Không có công việc nào {label}."
             else:
                 response_data["response"] = "Bạn chưa có công việc nào."
         else:
-            if status_filter:
+            if time_filter:
+                response_data["response"] = f"Danh sách công việc {time_filter}:"
+            elif status_filter:
                 response_data["response"] = f"Có {len(tasks)} công việc {label}:"
             else:
                 response_data["response"] = "Đây là danh sách công việc của bạn:"
+
+    elif intent == "task_upcoming":
+        all_tasks = db.get_tasks_by_user(user_id)
+        time_filter = result["entities"].get("time")
+        tasks = _filter_tasks(all_tasks, result["entities"].get("status"), time_filter)
+        response_data["tasks"] = tasks
+        if not tasks:
+            if time_filter:
+                response_data["response"] = f"Không có công việc nào cho {time_filter}."
+            else:
+                response_data["response"] = "Không có công việc sắp tới."
+        else:
+            if time_filter:
+                response_data["response"] = f"Danh sách công việc {time_filter}:"
+            else:
+                response_data["response"] = f"Có {len(tasks)} công việc sắp tới:"
 
     elif intent == "status_update":
         task_name = result["entities"].get("task_name")
@@ -147,6 +272,9 @@ async def chat(request: ChatRequest):
                 response_data["response"] = f"Đã đánh dấu '{task['title']}' hoàn thành!"
             else:
                 response_data["response"] = f"Không tìm thấy công việc '{task_name}'."
+        else:
+            waiting_for[user_id] = {"intent": intent, "entities": result.get("entities", {})}
+            response_data["response"] = "Công việc nào đã hoàn thành?"
 
     elif intent == "delete_task":
         task_name = result["entities"].get("task_name")
@@ -157,6 +285,17 @@ async def chat(request: ChatRequest):
                 response_data["response"] = f"Bạn có chắc muốn xóa '{task['title']}' không? (Có/Không)"
             else:
                 response_data["response"] = f"Không tìm thấy công việc '{task_name}'."
+        else:
+            waiting_for[user_id] = {"intent": intent, "entities": result.get("entities", {})}
+            response_data["response"] = "Bạn muốn xóa công việc nào?"
+
+    elif intent == "update_task":
+        task_name = result["entities"].get("task_name")
+        if task_name:
+            response_data["response"] = f"Bạn muốn sửa gì cho '{task_name}'?"
+        else:
+            waiting_for[user_id] = {"intent": intent, "entities": result.get("entities", {})}
+            response_data["response"] = "Bạn muốn cập nhật công việc nào?"
 
     elif intent == "delete_all_tasks":
         tasks = db.get_tasks_by_user(user_id)
@@ -184,7 +323,7 @@ async def chat(request: ChatRequest):
 
     elif intent == "task_today":
         tasks = db.get_tasks_by_user(user_id)
-        pending = [t for t in tasks if not t["is_completed"]]
+        pending = _filter_tasks(tasks, "pending", result["entities"].get("time") or "hôm nay")
         response_data["tasks"] = pending
         if not pending:
             response_data["response"] = "Hôm nay bạn chưa có việc gì hoặc đã hoàn thành tất cả!"

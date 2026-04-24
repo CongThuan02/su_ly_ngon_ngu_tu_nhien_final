@@ -9659,6 +9659,38 @@
       "entities": {
         "time": "ngày 26"
       }
+    },
+    {
+      "id": "train_999",
+      "category": "create_task",
+      "user_input": "Tạo công việc: ngày 26 đi chơi với bạn bè 1 mình",
+      "expected_output": "Đã tạo công việc 'đi chơi với bạn bè 1 mình'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đi chơi với bạn bè 1 mình",
+        "time": "ngày 26"
+      }
+    },
+    {
+      "id": "train_1000",
+      "category": "create_task",
+      "user_input": "Thêm công việc: ngày 26 đi chơi với bạn bè 1 mình",
+      "expected_output": "Đã tạo công việc 'đi chơi với bạn bè 1 mình'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đi chơi với bạn bè 1 mình",
+        "time": "ngày 26"
+      }
+    },
+    {
+      "id": "train_1001",
+      "category": "task_upcoming",
+      "user_input": "Công việc cho ngày 26 là gì",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày 26"
+      }
     }
   ],
   "test_data": [
@@ -10854,6 +10886,27 @@
       "id": "test_119",
       "category": "task_upcoming",
       "user_input": "Công việc ngày 26 là gì",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày 26"
+      }
+    },
+    {
+      "id": "test_120",
+      "category": "create_task",
+      "user_input": "Tạo công việc: ngày 26 đi chơi với bạn bè 1 mình",
+      "expected_output": "Đã tạo công việc 'đi chơi với bạn bè 1 mình'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đi chơi với bạn bè 1 mình",
+        "time": "ngày 26"
+      }
+    },
+    {
+      "id": "test_121",
+      "category": "task_upcoming",
+      "user_input": "Công việc cho ngày 26 là gì",
       "expected_output": "Công việc sắp tới:",
       "intent": "task_upcoming",
       "entities": {

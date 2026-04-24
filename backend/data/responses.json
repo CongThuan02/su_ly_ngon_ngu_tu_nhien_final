@@ -25,7 +25,36 @@
     "Công việc 'Viết unit test' được tạo\n- Ưu tiên: CAO\n- Hạn: 30/03",
     "Công việc 'Tài liệu API' được tạo\nMô tả: 'Tạo tài liệu chi tiết cho API v2'",
     "Công việc 'Phỏng vấn ứng viên' được tạo\nGán cho: Nhóm HR",
-    "Công việc 'Quản lý dự án Q2' được tạo\n- Ưu tiên: TRUNG BÌNH\n- Hạn: 01/04"
+    "Công việc 'Quản lý dự án Q2' được tạo\n- Ưu tiên: TRUNG BÌNH\n- Hạn: 01/04",
+    "Đã tạo công việc 'trí tuệ nhân tạo'.",
+    "Đã tạo công việc 'học bài'.",
+    "Đã tạo công việc 'đi chợ'.",
+    "Đã tạo công việc 'nấu cơm'.",
+    "Đã tạo công việc 'họp nhóm'.",
+    "Đã tạo công việc 'viết báo cáo'.",
+    "Đã tạo công việc 'hoàn thành bài tập NLP'.",
+    "Đã tạo công việc 'sửa lỗi app'.",
+    "Đã tạo công việc 'review code'.",
+    "Đã tạo công việc 'gửi email cho sếp'.",
+    "Đã tạo công việc 'dọn nhà'.",
+    "Đã tạo công việc 'đọc sách'.",
+    "Đã tạo công việc 'tập thể dục'.",
+    "Đã tạo công việc 'nộp bài tập'.",
+    "Đã tạo công việc 'chuẩn bị slide'.",
+    "Đã tạo công việc 'hoàn thành bài tập về nhà'.",
+    "Đã tạo công việc 'sửa lỗi critical'.",
+    "Đã tạo công việc 'xóa dữ liệu cũ'.",
+    "Đã tạo công việc 'cập nhật tài liệu'.",
+    "Đã tạo công việc 'kiểm tra hệ thống'.",
+    "Đã tạo công việc 'làm bài tập'.",
+    "Đã tạo công việc 'đi khám bệnh'.",
+    "Đã tạo công việc 'mua quà sinh nhật'.",
+    "Bạn muốn tạo công việc gì cho hôm nay?",
+    "Đã tạo công việc 'làm bài tập toán'.",
+    "Đã tạo công việc 'làm đi tiệc cùng bạn bè'.",
+    "Đã tạo công việc 'đi tiệc cùng bạn bè'.",
+    "Đã tạo công việc 'học xử lý ngôn ngữ tự nhiên'.",
+    "Đã tạo công việc 'đi chơi với bạn bè 1 mình'."
   ],
   "list_tasks": [
     "Danh sách công việc của bạn:\n1. Viết báo cáo tháng 3 - Chưa bắt đầu\n2. Thiết kế website - Đang thực hiện\n3. Họp khách hàng - Sắp tới",
@@ -79,7 +108,12 @@
     "Task chưa hoàn thành:",
     "Task chưa xong:",
     "Công việc hiện tại:",
-    "Tất cả việc cần làm:"
+    "Tất cả việc cần làm:",
+    "Các công việc chưa hoàn thành:",
+    "Danh sách việc chưa hoàn thành:",
+    "Task đã xong:",
+    "Việc đã xong:",
+    "Việc chưa làm:"
   ],
   "update_task": [
     "Công việc 'Viết báo cáo' đã được cập nhật. Trạng thái mới: Đang thực hiện",
@@ -587,7 +621,8 @@
     "Lịch bận hôm nay:",
     "Kế hoạch hôm nay:",
     "Kiểm tra meeting sáng nay:",
-    "Tổng hợp công việc hôm nay:"
+    "Tổng hợp công việc hôm nay:",
+    "Công việc hôm nay:"
   ],
   "task_overdue": [
     "Các công việc đã quá hạn:\n1. Viết báo cáo - Quá hạn 2 ngày\n2. Nộp tài liệu - Quá hạn 1 ngày",
@@ -641,7 +676,8 @@
     "Công việc tuần sau:",
     "Công việc 5 ngày tới:",
     "Kiểm tra lịch rảnh tuần tới:",
-    "Lịch chiều mai:"
+    "Lịch chiều mai:",
+    "Công việc sắp tới:"
   ],
   "task_by_category": [
     "Công việc thuộc dự án Alpha:",
