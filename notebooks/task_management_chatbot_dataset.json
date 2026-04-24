@@ -9393,6 +9393,272 @@
       "entities": {
         "status": "chưa hoàn thành"
       }
+    },
+    {
+      "id": "train_973",
+      "category": "task_today",
+      "user_input": "Công việc hôm nay là gì",
+      "expected_output": "Công việc hôm nay:",
+      "intent": "task_today",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_974",
+      "category": "task_today",
+      "user_input": "Hôm nay tôi có công việc gì",
+      "expected_output": "Công việc hôm nay:",
+      "intent": "task_today",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_975",
+      "category": "task_today",
+      "user_input": "Danh sách công việc hôm nay",
+      "expected_output": "Công việc hôm nay:",
+      "intent": "task_today",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_976",
+      "category": "task_today",
+      "user_input": "Việc hôm nay của tôi là gì",
+      "expected_output": "Công việc hôm nay:",
+      "intent": "task_today",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_977",
+      "category": "task_upcoming",
+      "user_input": "Danh sách công việc ngày mai",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày mai"
+      }
+    },
+    {
+      "id": "train_978",
+      "category": "task_upcoming",
+      "user_input": "Ngày mai tôi có công việc gì",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày mai"
+      }
+    },
+    {
+      "id": "train_979",
+      "category": "create_task",
+      "user_input": "Tạo công việc cho ngày hôm nay",
+      "expected_output": "Bạn muốn tạo công việc gì cho hôm nay?",
+      "intent": "create_task",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_980",
+      "category": "create_task",
+      "user_input": "Giúp tôi tạo công việc cho ngày hôm nay",
+      "expected_output": "Bạn muốn tạo công việc gì cho hôm nay?",
+      "intent": "create_task",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_981",
+      "category": "create_task",
+      "user_input": "Tạo công việc cho hôm nay là làm bài tập toán",
+      "expected_output": "Đã tạo công việc 'làm bài tập toán'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "làm bài tập toán",
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_982",
+      "category": "create_task",
+      "user_input": "Giúp tôi tạo công việc cho ngày 26/04 là làm đi tiệc cùng bạn bè",
+      "expected_output": "Đã tạo công việc 'làm đi tiệc cùng bạn bè'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "làm đi tiệc cùng bạn bè",
+        "time": "ngày 26/04"
+      }
+    },
+    {
+      "id": "train_983",
+      "category": "create_task",
+      "user_input": "Tạo công việc cho ngày 26/04 là đi tiệc cùng bạn bè",
+      "expected_output": "Đã tạo công việc 'đi tiệc cùng bạn bè'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đi tiệc cùng bạn bè",
+        "time": "ngày 26/04"
+      }
+    },
+    {
+      "id": "train_984",
+      "category": "create_task",
+      "user_input": "Thêm công việc cho ngày mai là học xử lý ngôn ngữ tự nhiên",
+      "expected_output": "Đã tạo công việc 'học xử lý ngôn ngữ tự nhiên'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "học xử lý ngôn ngữ tự nhiên",
+        "time": "ngày mai"
+      }
+    },
+    {
+      "id": "train_985",
+      "category": "task_today",
+      "user_input": "Công vịec hôm nay là gì",
+      "expected_output": "Công việc hôm nay:",
+      "intent": "task_today",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_986",
+      "category": "task_today",
+      "user_input": "Cong viec hom nay la gi",
+      "expected_output": "Công việc hôm nay:",
+      "intent": "task_today",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_987",
+      "category": "task_today",
+      "user_input": "Viec hom nay cua toi la gi",
+      "expected_output": "Công việc hôm nay:",
+      "intent": "task_today",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_988",
+      "category": "task_upcoming",
+      "user_input": "Danh sach cong viec ngay mai",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày mai"
+      }
+    },
+    {
+      "id": "train_989",
+      "category": "task_upcoming",
+      "user_input": "Cong viec ngay mai la gi",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày mai"
+      }
+    },
+    {
+      "id": "train_990",
+      "category": "create_task",
+      "user_input": "Tao cong viec cho ngay hom nay",
+      "expected_output": "Bạn muốn tạo công việc gì cho hôm nay?",
+      "intent": "create_task",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_991",
+      "category": "create_task",
+      "user_input": "Tao cong viec cho ngay 26/04 la lam di tiec cung ban be",
+      "expected_output": "Đã tạo công việc 'làm đi tiệc cùng bạn bè'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "làm đi tiệc cùng bạn bè",
+        "time": "ngày 26/04"
+      }
+    },
+    {
+      "id": "train_992",
+      "category": "create_task",
+      "user_input": "Them cong viec cho ngay mai la hoc xu ly ngon ngu tu nhien",
+      "expected_output": "Đã tạo công việc 'học xử lý ngôn ngữ tự nhiên'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "học xử lý ngôn ngữ tự nhiên",
+        "time": "ngày mai"
+      }
+    },
+    {
+      "id": "train_993",
+      "category": "create_task",
+      "user_input": "Tạo công vịec cho ngày hôm nay",
+      "expected_output": "Bạn muốn tạo công việc gì cho hôm nay?",
+      "intent": "create_task",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_994",
+      "category": "create_task",
+      "user_input": "Làm bại tập toán",
+      "expected_output": "Đã tạo công việc 'làm bài tập toán'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "làm bài tập toán"
+      }
+    },
+    {
+      "id": "train_995",
+      "category": "task_upcoming",
+      "user_input": "Danh sách công việc ngày 26",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày 26"
+      }
+    },
+    {
+      "id": "train_996",
+      "category": "task_upcoming",
+      "user_input": "Công việc ngày 26 là gì",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày 26"
+      }
+    },
+    {
+      "id": "train_997",
+      "category": "task_upcoming",
+      "user_input": "Ngày 26 tôi có công việc gì",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày 26"
+      }
+    },
+    {
+      "id": "train_998",
+      "category": "list_tasks",
+      "user_input": "Xem công việc ngày 26",
+      "expected_output": "Danh sách công việc:",
+      "intent": "list_tasks",
+      "entities": {
+        "time": "ngày 26"
+      }
     }
   ],
   "test_data": [
@@ -10502,6 +10768,97 @@
       "expected_output": "Tôi không biết nấu phở, nhưng tôi có thể giúp bạn thêm 'nấu phở' vào danh sách việc cần làm!",
       "intent": "out_of_scope",
       "entities": {}
+    },
+    {
+      "id": "test_111",
+      "category": "task_today",
+      "user_input": "Công việc hôm nay là gì?",
+      "expected_output": "Công việc hôm nay:",
+      "intent": "task_today",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "test_112",
+      "category": "create_task",
+      "user_input": "Tạo công việc cho ngày hôm nay",
+      "expected_output": "Bạn muốn tạo công việc gì cho hôm nay?",
+      "intent": "create_task",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "test_113",
+      "category": "create_task",
+      "user_input": "Giúp tôi tạo công việc cho ngày 26/04 là làm đi tiệc cùng bạn bè",
+      "expected_output": "Đã tạo công việc 'làm đi tiệc cùng bạn bè'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "làm đi tiệc cùng bạn bè",
+        "time": "ngày 26/04"
+      }
+    },
+    {
+      "id": "test_114",
+      "category": "task_upcoming",
+      "user_input": "Danh sách công việc ngày mai",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày mai"
+      }
+    },
+    {
+      "id": "test_115",
+      "category": "task_today",
+      "user_input": "Công vịec hôm nay là gì",
+      "expected_output": "Công việc hôm nay:",
+      "intent": "task_today",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "test_116",
+      "category": "create_task",
+      "user_input": "Tạo công vịec cho ngày hôm nay",
+      "expected_output": "Bạn muốn tạo công việc gì cho hôm nay?",
+      "intent": "create_task",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "test_117",
+      "category": "create_task",
+      "user_input": "Làm bại tập toán",
+      "expected_output": "Đã tạo công việc 'làm bài tập toán'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "làm bài tập toán"
+      }
+    },
+    {
+      "id": "test_118",
+      "category": "task_upcoming",
+      "user_input": "Danh sách công việc ngày 26",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày 26"
+      }
+    },
+    {
+      "id": "test_119",
+      "category": "task_upcoming",
+      "user_input": "Công việc ngày 26 là gì",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày 26"
+      }
     }
   ]
 }
