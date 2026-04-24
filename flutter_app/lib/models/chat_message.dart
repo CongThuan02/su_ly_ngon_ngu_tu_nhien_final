@@ -6,6 +6,7 @@ class ChatMessage {
   final double? confidence;
   final String? source;
   final Map<String, dynamic>? entities;
+  final List<Map<String, dynamic>> tasks;
 
   ChatMessage({
     required this.text,
@@ -15,5 +16,6 @@ class ChatMessage {
     this.confidence,
     this.source,
     this.entities,
+    this.tasks = const [],
   }) : timestamp = timestamp ?? DateTime.now();
 }

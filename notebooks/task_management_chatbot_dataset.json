@@ -3,8 +3,8 @@
     "name": "Task Management Chatbot Dataset - Vietnamese",
     "description": "Comprehensive dataset for training and testing Vietnamese task management chatbot",
     "language": "Vietnamese",
-    "total_samples": 1039,
-    "training_samples": 929,
+    "total_samples": 1077,
+    "training_samples": 967,
     "test_samples": 110,
     "categories": [
       "create_task",
@@ -8995,6 +8995,403 @@
       "entities": {
         "task_name": "viết tài liệu",
         "status": "hoàn thành"
+      }
+    },
+    {
+      "id": "train_935",
+      "category": "create_task",
+      "user_input": "Thêm trí tuệ nhân tạo cho ngày mai",
+      "expected_output": "Đã tạo công việc 'trí tuệ nhân tạo'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "trí tuệ nhân tạo",
+        "deadline": "ngày mai"
+      }
+    },
+    {
+      "id": "train_936",
+      "category": "create_task",
+      "user_input": "Thêm học bài cho ngày mai",
+      "expected_output": "Đã tạo công việc 'học bài'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "học bài",
+        "deadline": "ngày mai"
+      }
+    },
+    {
+      "id": "train_937",
+      "category": "create_task",
+      "user_input": "Thêm đi chợ cho chiều nay",
+      "expected_output": "Đã tạo công việc 'đi chợ'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đi chợ",
+        "deadline": "chiều nay"
+      }
+    },
+    {
+      "id": "train_938",
+      "category": "create_task",
+      "user_input": "Thêm nấu cơm cho tối nay",
+      "expected_output": "Đã tạo công việc 'nấu cơm'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "nấu cơm",
+        "deadline": "tối nay"
+      }
+    },
+    {
+      "id": "train_939",
+      "category": "create_task",
+      "user_input": "Thêm họp nhóm cho sáng mai",
+      "expected_output": "Đã tạo công việc 'họp nhóm'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "họp nhóm",
+        "deadline": "sáng mai"
+      }
+    },
+    {
+      "id": "train_940",
+      "category": "create_task",
+      "user_input": "Thêm viết báo cáo cho tuần sau",
+      "expected_output": "Đã tạo công việc 'viết báo cáo'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "viết báo cáo",
+        "deadline": "tuần sau"
+      }
+    },
+    {
+      "id": "train_941",
+      "category": "create_task",
+      "user_input": "Thêm hoàn thành bài tập NLP cho ngày mai",
+      "expected_output": "Đã tạo công việc 'hoàn thành bài tập NLP'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "hoàn thành bài tập NLP",
+        "deadline": "ngày mai"
+      }
+    },
+    {
+      "id": "train_942",
+      "category": "create_task",
+      "user_input": "Thêm sửa lỗi app cho hôm nay",
+      "expected_output": "Đã tạo công việc 'sửa lỗi app'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "sửa lỗi app",
+        "deadline": "hôm nay"
+      }
+    },
+    {
+      "id": "train_943",
+      "category": "create_task",
+      "user_input": "Thêm review code cho chiều nay",
+      "expected_output": "Đã tạo công việc 'review code'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "review code",
+        "deadline": "chiều nay"
+      }
+    },
+    {
+      "id": "train_944",
+      "category": "create_task",
+      "user_input": "Thêm gửi email cho sếp",
+      "expected_output": "Đã tạo công việc 'gửi email cho sếp'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "gửi email cho sếp"
+      }
+    },
+    {
+      "id": "train_945",
+      "category": "create_task",
+      "user_input": "Thêm dọn nhà cho cuối tuần",
+      "expected_output": "Đã tạo công việc 'dọn nhà'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "dọn nhà",
+        "deadline": "cuối tuần"
+      }
+    },
+    {
+      "id": "train_946",
+      "category": "create_task",
+      "user_input": "Thêm đọc sách cho tối nay",
+      "expected_output": "Đã tạo công việc 'đọc sách'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đọc sách",
+        "deadline": "tối nay"
+      }
+    },
+    {
+      "id": "train_947",
+      "category": "create_task",
+      "user_input": "Thêm tập thể dục cho sáng mai",
+      "expected_output": "Đã tạo công việc 'tập thể dục'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "tập thể dục",
+        "deadline": "sáng mai"
+      }
+    },
+    {
+      "id": "train_948",
+      "category": "create_task",
+      "user_input": "Thêm nộp bài tập cho ngày mai",
+      "expected_output": "Đã tạo công việc 'nộp bài tập'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "nộp bài tập",
+        "deadline": "ngày mai"
+      }
+    },
+    {
+      "id": "train_949",
+      "category": "create_task",
+      "user_input": "Thêm chuẩn bị slide cho ngày mai",
+      "expected_output": "Đã tạo công việc 'chuẩn bị slide'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "chuẩn bị slide",
+        "deadline": "ngày mai"
+      }
+    },
+    {
+      "id": "train_950",
+      "category": "create_task",
+      "user_input": "Giúp tôi thêm công việc hoàn thành bài tập về nhà",
+      "expected_output": "Đã tạo công việc 'hoàn thành bài tập về nhà'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "hoàn thành bài tập về nhà"
+      }
+    },
+    {
+      "id": "train_951",
+      "category": "create_task",
+      "user_input": "Giúp tôi thêm công việc sửa lỗi critical",
+      "expected_output": "Đã tạo công việc 'sửa lỗi critical'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "sửa lỗi critical"
+      }
+    },
+    {
+      "id": "train_952",
+      "category": "create_task",
+      "user_input": "Giúp tôi thêm công việc xóa dữ liệu cũ",
+      "expected_output": "Đã tạo công việc 'xóa dữ liệu cũ'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "xóa dữ liệu cũ"
+      }
+    },
+    {
+      "id": "train_953",
+      "category": "create_task",
+      "user_input": "Giúp tôi thêm công việc cập nhật tài liệu",
+      "expected_output": "Đã tạo công việc 'cập nhật tài liệu'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "cập nhật tài liệu"
+      }
+    },
+    {
+      "id": "train_954",
+      "category": "create_task",
+      "user_input": "Giúp tôi thêm công việc kiểm tra hệ thống",
+      "expected_output": "Đã tạo công việc 'kiểm tra hệ thống'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "kiểm tra hệ thống"
+      }
+    },
+    {
+      "id": "train_955",
+      "category": "create_task",
+      "user_input": "Tôi muốn thêm làm bài tập cho tối nay",
+      "expected_output": "Đã tạo công việc 'làm bài tập'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "làm bài tập",
+        "deadline": "tối nay"
+      }
+    },
+    {
+      "id": "train_956",
+      "category": "create_task",
+      "user_input": "Tôi muốn thêm đi khám bệnh cho ngày mai",
+      "expected_output": "Đã tạo công việc 'đi khám bệnh'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đi khám bệnh",
+        "deadline": "ngày mai"
+      }
+    },
+    {
+      "id": "train_957",
+      "category": "create_task",
+      "user_input": "Tôi cần thêm mua quà sinh nhật cho tuần sau",
+      "expected_output": "Đã tạo công việc 'mua quà sinh nhật'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "mua quà sinh nhật",
+        "deadline": "tuần sau"
+      }
+    },
+    {
+      "id": "train_958",
+      "category": "list_tasks",
+      "user_input": "Công việc đã hoàn thành",
+      "expected_output": "Các công việc đã hoàn thành:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "hoàn thành"
+      }
+    },
+    {
+      "id": "train_959",
+      "category": "list_tasks",
+      "user_input": "Công việc chưa hoàn thành",
+      "expected_output": "Các công việc chưa hoàn thành:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "chưa hoàn thành"
+      }
+    },
+    {
+      "id": "train_960",
+      "category": "list_tasks",
+      "user_input": "Việc đã xong",
+      "expected_output": "Các việc đã hoàn thành:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "hoàn thành"
+      }
+    },
+    {
+      "id": "train_961",
+      "category": "list_tasks",
+      "user_input": "Việc chưa xong",
+      "expected_output": "Các việc chưa hoàn thành:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "chưa hoàn thành"
+      }
+    },
+    {
+      "id": "train_962",
+      "category": "list_tasks",
+      "user_input": "Những việc đã hoàn thành",
+      "expected_output": "Danh sách việc đã hoàn thành:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "hoàn thành"
+      }
+    },
+    {
+      "id": "train_963",
+      "category": "list_tasks",
+      "user_input": "Những việc chưa hoàn thành",
+      "expected_output": "Danh sách việc chưa hoàn thành:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "chưa hoàn thành"
+      }
+    },
+    {
+      "id": "train_964",
+      "category": "list_tasks",
+      "user_input": "Các task đã done",
+      "expected_output": "Task đã hoàn thành:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "hoàn thành"
+      }
+    },
+    {
+      "id": "train_965",
+      "category": "list_tasks",
+      "user_input": "Các task chưa done",
+      "expected_output": "Task chưa hoàn thành:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "chưa hoàn thành"
+      }
+    },
+    {
+      "id": "train_966",
+      "category": "list_tasks",
+      "user_input": "Task nào đã xong",
+      "expected_output": "Task đã xong:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "hoàn thành"
+      }
+    },
+    {
+      "id": "train_967",
+      "category": "list_tasks",
+      "user_input": "Task nào chưa xong",
+      "expected_output": "Task chưa xong:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "chưa hoàn thành"
+      }
+    },
+    {
+      "id": "train_968",
+      "category": "list_tasks",
+      "user_input": "Có việc gì đã hoàn thành chưa",
+      "expected_output": "Các việc đã hoàn thành:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "hoàn thành"
+      }
+    },
+    {
+      "id": "train_969",
+      "category": "list_tasks",
+      "user_input": "Mấy việc đã xong rồi",
+      "expected_output": "Việc đã xong:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "hoàn thành"
+      }
+    },
+    {
+      "id": "train_970",
+      "category": "list_tasks",
+      "user_input": "Mấy việc chưa làm",
+      "expected_output": "Việc chưa làm:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "chưa hoàn thành"
+      }
+    },
+    {
+      "id": "train_971",
+      "category": "list_tasks",
+      "user_input": "Xem việc đã hoàn thành",
+      "expected_output": "Việc đã hoàn thành:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "hoàn thành"
+      }
+    },
+    {
+      "id": "train_972",
+      "category": "list_tasks",
+      "user_input": "Xem việc chưa hoàn thành",
+      "expected_output": "Việc chưa hoàn thành:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "chưa hoàn thành"
       }
     }
   ],

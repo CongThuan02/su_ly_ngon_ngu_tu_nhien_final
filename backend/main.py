@@ -97,6 +97,7 @@ async def chat(request: ChatRequest):
 
     result = chatbot.get_response(request.message)
     intent = result["intent"]
+
     response_data = {
         "intent": intent,
         "confidence": result["confidence"],
@@ -114,12 +115,28 @@ async def chat(request: ChatRequest):
             response_data["tasks"] = [task]
 
     elif intent == "list_tasks":
-        tasks = db.get_tasks_by_user(user_id)
+        all_tasks = db.get_tasks_by_user(user_id)
+        status_filter = result["entities"].get("status")
+        if status_filter == "completed":
+            tasks = [t for t in all_tasks if t["is_completed"]]
+            label = "đã hoàn thành"
+        elif status_filter == "pending":
+            tasks = [t for t in all_tasks if not t["is_completed"]]
+            label = "chưa hoàn thành"
+        else:
+            tasks = all_tasks
+            label = ""
         response_data["tasks"] = tasks
         if not tasks:
-            response_data["response"] = "Bạn chưa có công việc nào."
+            if status_filter:
+                response_data["response"] = f"Không có công việc nào {label}."
+            else:
+                response_data["response"] = "Bạn chưa có công việc nào."
         else:
-            response_data["response"] = "Đây là danh sách công việc của bạn:"
+            if status_filter:
+                response_data["response"] = f"Có {len(tasks)} công việc {label}:"
+            else:
+                response_data["response"] = "Đây là danh sách công việc của bạn:"
 
     elif intent == "status_update":
         task_name = result["entities"].get("task_name")
@@ -175,6 +192,7 @@ async def chat(request: ChatRequest):
             response_data["response"] = f"Bạn có {len(pending)} công việc chưa xong:"
 
     return ChatResponse(**response_data)
+
 
 
 def _handle_confirm_yes(action: dict, user_id: str) -> dict:

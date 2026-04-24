@@ -20,6 +20,10 @@ class ChatProvider extends ChangeNotifier {
 
     try {
       final result = await _api.sendMessage(text, userId);
+      final tasksList = (result['tasks'] as List<dynamic>?)
+          ?.map((t) => Map<String, dynamic>.from(t as Map))
+          .toList() ?? [];
+
       _messages.add(ChatMessage(
         text: result['response'] ?? 'Có lỗi xảy ra.',
         isUser: false,
@@ -27,6 +31,7 @@ class ChatProvider extends ChangeNotifier {
         confidence: (result['confidence'] as num?)?.toDouble(),
         source: result['source'],
         entities: result['entities'] as Map<String, dynamic>?,
+        tasks: tasksList,
       ));
     } catch (e) {
       _messages.add(ChatMessage(

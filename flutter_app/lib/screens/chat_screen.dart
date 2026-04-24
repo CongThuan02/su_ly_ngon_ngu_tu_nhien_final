@@ -216,6 +216,41 @@ class _ChatBubble extends StatelessWidget {
                 fontSize: 15,
               ),
             ),
+            // Hiển thị danh sách tasks nếu có
+            if (!isUser && message.tasks.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              ...message.tasks.map((task) {
+                final isCompleted = task['is_completed'] == true;
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2),
+                  child: Row(
+                    children: [
+                      Icon(
+                        isCompleted ? Icons.check_circle : Icons.radio_button_unchecked,
+                        size: 16,
+                        color: isCompleted ? Colors.green : Colors.grey[600],
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          task['title'] ?? '',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: colorScheme.onSurface,
+                            decoration: isCompleted ? TextDecoration.lineThrough : null,
+                          ),
+                        ),
+                      ),
+                      if (task['due_time'] != null)
+                        Text(
+                          task['due_time'],
+                          style: TextStyle(fontSize: 11, color: Colors.grey[500]),
+                        ),
+                    ],
+                  ),
+                );
+              }),
+            ],
             if (!isUser && message.source != null) ...[
               const SizedBox(height: 4),
               Text(

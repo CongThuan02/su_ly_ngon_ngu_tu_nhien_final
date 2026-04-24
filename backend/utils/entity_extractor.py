@@ -169,6 +169,20 @@ def extract_entities(text: str, intent: str) -> dict:
             text_lower = text_lower.strip()
             break
 
+    # === Trích xuất trạng thái lọc (cho list_tasks) ===
+    if intent == "list_tasks":
+        completed_keywords = ["đã hoàn thành", "đã xong", "hoàn thành", "đã làm xong", "completed", "done"]
+        pending_keywords = ["chưa hoàn thành", "chưa xong", "chưa làm", "chưa bắt đầu", "pending", "chưa done"]
+        for kw in pending_keywords:
+            if kw in text_lower:
+                entities["status"] = "pending"
+                break
+        else:
+            for kw in completed_keywords:
+                if kw in text_lower:
+                    entities["status"] = "completed"
+                    break
+
     # === Trích xuất tên công việc ===
     triggers = TASK_TRIGGERS.get(normalized_intent, []) + TASK_TRIGGERS.get(intent, [])
 
