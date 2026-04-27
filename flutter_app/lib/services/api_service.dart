@@ -7,7 +7,7 @@ class ApiService {
 
   // Đổi IP khi test trên thiết bị thật
   // localhost: simulator/emulator, IP máy: thiết bị thật
-  ApiService({this.baseUrl = 'http://10.1.110.88:8000'});
+  ApiService({this.baseUrl = 'http://localhost:8000'});
 
   // === Chat ===
   Future<Map<String, dynamic>> sendMessage(String message, String userId) async {

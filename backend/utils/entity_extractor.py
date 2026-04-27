@@ -190,7 +190,14 @@ def extract_entities(text: str, intent: str) -> dict:
                     break
 
     # === Trích xuất tên công việc ===
+    # Các intent "tạo việc" và "nhắc nhở" hay lẫn lộn → share triggers
+    CREATE_LIKE = {"create_task", "them_cong_viec", "set_reminder", "nhac_nho", "reminder"}
     triggers = TASK_TRIGGERS.get(normalized_intent, []) + TASK_TRIGGERS.get(intent, [])
+    if normalized_intent in CREATE_LIKE or intent in CREATE_LIKE:
+        for k in CREATE_LIKE:
+            triggers += TASK_TRIGGERS.get(k, [])
+    # Loại trùng, ưu tiên trigger dài hơn (match trước)
+    triggers = sorted(set(triggers), key=len, reverse=True)
 
     for trigger in triggers:
         idx = text_lower.find(trigger)
