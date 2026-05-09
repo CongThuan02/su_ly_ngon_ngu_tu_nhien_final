@@ -2,7 +2,6 @@ __pycache__/
 *.pyc
 .env
 firebase_credentials.json
-*.pth
 *.db
 venv/
 .venv/
