@@ -8,7 +8,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from models.chatbot import Chatbot
-from utils.entity_extractor import extract_entities
 from utils.time_parser import VN_TZ
 from utils.time_parser import parse_due_time
 import database as db
@@ -96,10 +95,6 @@ def _normalize_due_time(due_time: str | None) -> str | None:
 
 CONFIRM_YES = {"có", "co", "yes", "ừ", "ok", "đồng ý", "chắc chắn", "xác nhận", "có luôn", "ừ đi"}
 CONFIRM_NO = {"không", "no", "thôi", "hủy", "cancel", "đừng", "không đâu", "thôi đi"}
-CREATE_STATEMENT_WORDS = {"cần", "phải", "sẽ", "nhớ", "muốn", "dự định"}
-LOOKUP_QUESTION_WORDS = {"bao giờ", "khi nào", "lúc nào", "ngày nào", "hạn", "deadline", "đến hạn"}
-
-
 def _filter_tasks(tasks: list[dict], status_filter: str | None = None, time_filter: str | None = None) -> list[dict]:
     filtered = tasks
     if status_filter == "completed":
@@ -137,37 +132,6 @@ def _date_from_due_time(value: str | None):
             return datetime.fromisoformat(parsed_value).astimezone(VN_TZ).date()
         except ValueError:
             return None
-
-
-def _create_task_override(message: str) -> dict | None:
-    message_lower = message.lower()
-    if not any(word in message_lower for word in CREATE_STATEMENT_WORDS):
-        return None
-
-    entities = extract_entities(message, "create_task")
-    if not entities.get("time") or not entities.get("task_name"):
-        return None
-
-    return {
-        "intent": "create_task",
-        "confidence": 1.0,
-        "response": f"Đã tạo công việc '{entities['task_name']}'.",
-        "entities": entities,
-        "source": "rule_create",
-    }
-
-
-def _task_lookup_override(message: str) -> dict | None:
-    message_lower = message.lower()
-    if not any(word in message_lower for word in LOOKUP_QUESTION_WORDS):
-        return None
-    return {
-        "intent": "task_detail",
-        "confidence": 1.0,
-        "response": "Để tôi kiểm tra công việc đó.",
-        "entities": {},
-        "source": "rule_lookup",
-    }
 
 
 def _format_due_time(value: str | None) -> str:
@@ -352,7 +316,7 @@ async def chat(request: ChatRequest):
             followup.get("entities"),
         ))
 
-    result = _task_lookup_override(request.message) or _create_task_override(request.message) or chatbot.get_response(request.message)
+    result = chatbot.get_response(request.message)
     intent = result["intent"]
 
     response_data = {
@@ -463,21 +427,47 @@ async def chat(request: ChatRequest):
             response_data["response"] = "Bạn muốn cập nhật công việc nào?"
 
     elif intent == "delete_all_tasks":
-        tasks = db.get_tasks_by_user(user_id)
+        time_filter = result["entities"].get("time")
+        all_tasks = db.get_tasks_by_user(user_id)
+        tasks = _filter_tasks(all_tasks, time_filter=time_filter) if time_filter else all_tasks
         if not tasks:
-            response_data["response"] = "Không có công việc nào để xóa."
+            if time_filter:
+                response_data["response"] = f"Không có công việc nào cho {time_filter} để xóa."
+            else:
+                response_data["response"] = "Không có công việc nào để xóa."
         else:
-            pending_actions[user_id] = {"type": "delete_all"}
-            response_data["response"] = f"⚠️ Bạn có chắc muốn XÓA TẤT CẢ {len(tasks)} công việc? (Có/Không)"
+            pending_actions[user_id] = {
+                "type": "delete_all",
+                "task_ids": [task["id"] for task in tasks],
+                "time_filter": time_filter,
+            }
+            if time_filter:
+                response_data["response"] = f"⚠️ Bạn có chắc muốn xóa {len(tasks)} công việc cho {time_filter}? (Có/Không)"
+            else:
+                response_data["response"] = f"⚠️ Bạn có chắc muốn XÓA TẤT CẢ {len(tasks)} công việc? (Có/Không)"
+            response_data["tasks"] = tasks
 
     elif intent == "complete_all_tasks":
-        tasks = db.get_tasks_by_user(user_id)
+        time_filter = result["entities"].get("time")
+        all_tasks = db.get_tasks_by_user(user_id)
+        tasks = _filter_tasks(all_tasks, "pending", time_filter)
         pending_count = sum(1 for t in tasks if not t["is_completed"])
         if pending_count == 0:
-            response_data["response"] = "Không có công việc nào cần hoàn thành."
+            if time_filter:
+                response_data["response"] = f"Không có công việc nào cho {time_filter} cần hoàn thành."
+            else:
+                response_data["response"] = "Không có công việc nào cần hoàn thành."
         else:
-            pending_actions[user_id] = {"type": "complete_all"}
-            response_data["response"] = f"Bạn có chắc muốn đánh dấu hoàn thành TẤT CẢ {pending_count} công việc? (Có/Không)"
+            pending_actions[user_id] = {
+                "type": "complete_all",
+                "task_ids": [task["id"] for task in tasks if not task["is_completed"]],
+                "time_filter": time_filter,
+            }
+            if time_filter:
+                response_data["response"] = f"Bạn có chắc muốn đánh dấu hoàn thành {pending_count} công việc cho {time_filter}? (Có/Không)"
+            else:
+                response_data["response"] = f"Bạn có chắc muốn đánh dấu hoàn thành TẤT CẢ {pending_count} công việc? (Có/Không)"
+            response_data["tasks"] = tasks
 
     elif intent == "statistics":
         tasks = db.get_tasks_by_user(user_id)
@@ -506,12 +496,28 @@ def _handle_confirm_yes(action: dict, user_id: str) -> dict:
                 "response": f"Đã xóa '{action['task_name']}'."}
 
     elif action["type"] == "delete_all":
-        count = db.delete_all_tasks(user_id)
+        task_ids = action.get("task_ids")
+        if task_ids is not None:
+            count = sum(1 for task_id in task_ids if db.delete_task(task_id))
+            time_filter = action.get("time_filter")
+            if time_filter:
+                return {"intent": "confirm_delete", "confidence": 1.0,
+                        "response": f"Đã xóa {count} công việc cho {time_filter}."}
+        else:
+            count = db.delete_all_tasks(user_id)
         return {"intent": "confirm_delete", "confidence": 1.0,
                 "response": f"Đã xóa tất cả {count} công việc."}
 
     elif action["type"] == "complete_all":
-        count = db.complete_all_tasks(user_id)
+        task_ids = action.get("task_ids")
+        if task_ids is not None:
+            count = sum(1 for task_id in task_ids if db.complete_task(task_id))
+            time_filter = action.get("time_filter")
+            if time_filter:
+                return {"intent": "confirm_complete", "confidence": 1.0,
+                        "response": f"Đã đánh dấu hoàn thành {count} công việc cho {time_filter}!"}
+        else:
+            count = db.complete_all_tasks(user_id)
         return {"intent": "confirm_complete", "confidence": 1.0,
                 "response": f"Đã đánh dấu hoàn thành {count} công việc!"}
 

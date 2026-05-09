@@ -79,7 +79,17 @@
     "Đã tạo công việc 'kiểm tra bug production'.",
     "Đã tạo công việc 'bảo trì laptop'.",
     "Đã tạo công việc 'gia hạn domain website'.",
-    "Đã tạo công việc 'kiểm tra sức khỏe tổng quát'."
+    "Đã tạo công việc 'kiểm tra sức khỏe tổng quát'.",
+    "Đã tạo công việc 'đóng tiền nước'.",
+    "Đã tạo công việc 'nộp báo cáo cuối kỳ'.",
+    "Đã tạo công việc 'gửi hợp đồng cho khách hàng'.",
+    "Đã tạo công việc 'đi bảo dưỡng xe'.",
+    "Đã tạo công việc 'tái khám răng'.",
+    "Đã tạo công việc 'gia hạn domain'.",
+    "Đã tạo công việc 'thanh toán bảo hiểm'.",
+    "Đã tạo công việc 'họp phụ huynh'.",
+    "Đã tạo công việc 'kiểm tra email khách hàng'.",
+    "Đã tạo công việc 'chuẩn bị bài thuyết trình'."
   ],
   "list_tasks": [
     "Danh sách công việc của bạn:\n1. Viết báo cáo tháng 3 - Chưa bắt đầu\n2. Thiết kế website - Đang thực hiện\n3. Họp khách hàng - Sắp tới",
@@ -331,7 +341,16 @@
     "Đã đặt nhắc nhở trước deadline 1 ngày.",
     "Công việc theo thứ tự deadline:",
     "Hạn chót sớm nhất:",
-    "Đã cập nhật hạn chót."
+    "Đã cập nhật hạn chót.",
+    "Hạn của công việc 'thẻ tín dụng'.",
+    "Hạn của công việc 'đóng tiền điện'.",
+    "Hạn của công việc 'báo cáo tài chính'.",
+    "Hạn của công việc 'khám sức khỏe'.",
+    "Hạn của công việc 'trả tiền internet'.",
+    "Hạn của công việc 'thanh toán thẻ'.",
+    "Hạn của công việc 'thanh toán thẻ tín dụng'.",
+    "Hạn của công việc 'nộp báo cáo cuối kỳ'.",
+    "Hạn của công việc 'gia hạn domain'."
   ],
   "priority_management": [
     "Độ ưu tiên của 'Họp khách hàng' được thay đổi thành: CAO (Mức độ: 1/3)",
@@ -480,7 +499,10 @@
     "Bạn có chắc muốn hoàn thành tất cả?",
     "Bạn muốn hoàn thành tất cả nhiệm vụ? Xác nhận?",
     "Bạn muốn đánh dấu hoàn thành tất cả?",
-    "Bạn có chắc muốn hoàn thành toàn bộ?"
+    "Bạn có chắc muốn hoàn thành toàn bộ?",
+    "Bạn có chắc muốn hoàn thành các công việc cho ngày 10?",
+    "Bạn có chắc muốn hoàn thành các công việc cho ngày mai?",
+    "Bạn có chắc muốn hoàn thành các công việc cho ngày 15?"
   ],
   "delete_all_tasks": [
     "⚠️ Cảnh báo: Bạn có chắc muốn XÓA TẤT CẢ công việc không? Hành động này không thể hoàn tác. Hãy xác nhận 'Có' hoặc 'Không'.",
@@ -494,7 +516,10 @@
     "⚠️ Bạn có chắc muốn xóa hết?",
     "⚠️ Bạn có chắc muốn clear tất cả?",
     "⚠️ Bạn có chắc muốn xóa tất cả để bắt đầu lại?",
-    "⚠️ Bạn có chắc muốn xóa tất cả task cũ?"
+    "⚠️ Bạn có chắc muốn xóa tất cả task cũ?",
+    "Bạn có chắc muốn xóa các công việc cho ngày 10?",
+    "Bạn có chắc muốn xóa các công việc cho ngày mai?",
+    "Bạn có chắc muốn xóa các công việc cho ngày 15?"
   ],
   "confirm_complete": [
     "Đã đánh dấu hoàn thành TẤT CẢ 8 công việc thành công!",
@@ -818,7 +843,17 @@
     "Thời gian tạo 'họp khách hàng':",
     "Chi tiết đầy đủ 'migration':",
     "Số người tham gia 'dự án Alpha':",
-    "Estimate 'viết test':"
+    "Estimate 'viết test':",
+    "Chi tiết công việc 'thẻ tín dụng'.",
+    "Chi tiết công việc 'đóng tiền điện'.",
+    "Chi tiết công việc 'nộp báo cáo tài chính'.",
+    "Chi tiết công việc 'đi khám sức khỏe'.",
+    "Chi tiết công việc 'trả tiền internet'.",
+    "Chi tiết công việc 'thanh toán thẻ'.",
+    "Chi tiết công việc 'thanh toán thẻ tín dụng'.",
+    "Chi tiết công việc 'đóng tiền nước'.",
+    "Chi tiết công việc 'nộp báo cáo cuối kỳ'.",
+    "Chi tiết công việc 'tái khám răng'."
   ],
   "reschedule": [
     "Đã dời 'họp nhóm' sang ngày mai.",

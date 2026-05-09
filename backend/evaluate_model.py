@@ -7,6 +7,9 @@ from models.chatbot import Chatbot
 
 
 def evaluate(dataset_path: Path, data_dir: Path) -> int:
+    if not dataset_path.exists() and dataset_path.name == "task_management_chatbot_dataset_v2.json":
+        dataset_path = dataset_path.with_name("task_management_chatbot_dataset.json")
+
     chatbot = Chatbot(str(data_dir))
     data = json.loads(dataset_path.read_text(encoding="utf-8"))
     rows = data["test_data"]
@@ -60,7 +63,7 @@ def main() -> int:
     parser.add_argument(
         "--dataset",
         type=Path,
-        default=Path("../notebooks/task_management_chatbot_dataset.json"),
+        default=Path("../notebooks/task_management_chatbot_dataset_v2.json"),
     )
     parser.add_argument("--data-dir", type=Path, default=Path("data"))
     args = parser.parse_args()
