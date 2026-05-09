@@ -2,6 +2,9 @@ import json
 import os
 import random
 
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
+os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+
 from utils.text_preprocessor import text_to_sequence
 from utils.entity_extractor import extract_entities
 
@@ -117,21 +120,33 @@ class Chatbot:
 
         if (torch and AutoTokenizer and PhoBERTClassifier
                 and os.path.exists(phobert_path)):
-            # Load tokenizer (local hoặc từ hub)
-            if os.path.exists(tokenizer_path):
-                self.phobert_tokenizer = AutoTokenizer.from_pretrained(tokenizer_path)
-            else:
-                self.phobert_tokenizer = AutoTokenizer.from_pretrained(phobert_name)
+            try:
+                # Keep backend startup offline-safe; the fine-tuned weights are local.
+                if os.path.exists(tokenizer_path):
+                    self.phobert_tokenizer = AutoTokenizer.from_pretrained(tokenizer_path)
+                else:
+                    self.phobert_tokenizer = AutoTokenizer.from_pretrained(
+                        phobert_name,
+                        local_files_only=True,
+                    )
 
-            phobert_base = AutoModel.from_pretrained(phobert_name)
-            self.phobert_model = PhoBERTClassifier(
-                phobert_base, len(self.tags)
-            ).to(self.device)
-            self.phobert_model.load_state_dict(
-                torch.load(phobert_path, map_location=self.device, weights_only=True)
-            )
-            self.phobert_model.eval()
-            print("  PhoBERT model loaded")
+                phobert_base = AutoModel.from_pretrained(
+                    phobert_name,
+                    local_files_only=True,
+                    use_safetensors=False,
+                )
+                self.phobert_model = PhoBERTClassifier(
+                    phobert_base, len(self.tags)
+                ).to(self.device)
+                self.phobert_model.load_state_dict(
+                    torch.load(phobert_path, map_location=self.device, weights_only=True)
+                )
+                self.phobert_model.eval()
+                print("  PhoBERT model loaded")
+            except Exception as exc:
+                self.phobert_model = None
+                self.phobert_tokenizer = None
+                print(f"  PhoBERT model skipped: {exc}")
 
     def predict_lstm(self, text: str) -> tuple[str, float]:
         """Tầng 1: LSTM."""

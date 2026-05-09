@@ -1,2 +1,3 @@
 backend/data/chatbot_model.pth
 backend/data/phobert_model.pth
+backend/data/phobert_tokenizer.zip

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/task.dart';
 import '../providers/task_provider.dart';
 
 class TaskScreen extends StatefulWidget {
@@ -9,7 +10,8 @@ class TaskScreen extends StatefulWidget {
   State<TaskScreen> createState() => _TaskScreenState();
 }
 
-class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateMixin {
+class _TaskScreenState extends State<TaskScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabCtrl;
 
   @override
@@ -70,47 +72,106 @@ class _TaskScreenState extends State<TaskScreen> with SingleTickerProviderStateM
 
   void _showAddTaskDialog(BuildContext context) {
     final controller = TextEditingController();
+    DateTime? selectedDateTime;
+    bool isSaving = false;
+
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Thêm công việc'),
-        content: TextField(
-          controller: controller,
-          autofocus: true,
-          decoration: const InputDecoration(
-            hintText: 'Tên công việc...',
-            border: OutlineInputBorder(),
-          ),
-          onSubmitted: (value) {
-            if (value.trim().isNotEmpty) {
-              context.read<TaskProvider>().addTask(value.trim());
-              Navigator.pop(ctx);
-            }
-          },
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('Hủy'),
-          ),
-          FilledButton(
-            onPressed: () {
-              final text = controller.text.trim();
-              if (text.isNotEmpty) {
-                context.read<TaskProvider>().addTask(text);
-                Navigator.pop(ctx);
+      builder: (ctx) => StatefulBuilder(
+        builder: (dialogContext, setDialogState) {
+          Future<void> submit() async {
+            if (isSaving) return;
+            final text = controller.text.trim();
+            if (text.isEmpty) return;
+
+            setDialogState(() => isSaving = true);
+            try {
+              await context.read<TaskProvider>().addTask(
+                text,
+                dueTime: selectedDateTime?.toIso8601String(),
+              );
+              if (ctx.mounted) Navigator.pop(ctx);
+            } catch (e) {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Không lưu được công việc: $e')),
+                );
               }
-            },
-            child: const Text('Thêm'),
-          ),
-        ],
+            } finally {
+              if (ctx.mounted) {
+                setDialogState(() => isSaving = false);
+              }
+            }
+          }
+
+          return AlertDialog(
+            title: const Text('Thêm công việc'),
+            content: _TaskFormFields(
+              controller: controller,
+              selectedDateTime: selectedDateTime,
+              onPickDateTime: () async {
+                final value = await _pickDateTime(ctx, selectedDateTime);
+                if (value != null) {
+                  setDialogState(() => selectedDateTime = value);
+                }
+              },
+              onClearDateTime: () =>
+                  setDialogState(() => selectedDateTime = null),
+              onSubmit: submit,
+            ),
+            actions: [
+              TextButton(
+                onPressed: isSaving ? null : () => Navigator.pop(ctx),
+                child: const Text('Hủy'),
+              ),
+              FilledButton(
+                onPressed: isSaving ? null : submit,
+                child: isSaving
+                    ? const SizedBox.square(
+                        dimension: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Text('Thêm'),
+              ),
+            ],
+          );
+        },
       ),
+    );
+  }
+
+  Future<DateTime?> _pickDateTime(
+    BuildContext context,
+    DateTime? initial,
+  ) async {
+    final now = DateTime.now();
+    final base = initial ?? now;
+    final date = await showDatePicker(
+      context: context,
+      initialDate: base,
+      firstDate: DateTime(now.year - 1),
+      lastDate: DateTime(now.year + 5),
+    );
+    if (date == null || !context.mounted) return null;
+
+    final selectedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(base),
+    );
+    if (selectedTime == null) return null;
+
+    return DateTime(
+      date.year,
+      date.month,
+      date.day,
+      selectedTime.hour,
+      selectedTime.minute,
     );
   }
 }
 
 class _TaskList extends StatelessWidget {
-  final List tasks;
+  final List<Task> tasks;
   final bool showComplete;
   const _TaskList({required this.tasks, required this.showComplete});
 
@@ -128,7 +189,9 @@ class _TaskList extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              showComplete ? 'Không có việc chưa xong' : 'Chưa hoàn thành việc nào',
+              showComplete
+                  ? 'Không có việc chưa xong'
+                  : 'Chưa hoàn thành việc nào',
               style: TextStyle(color: Colors.grey[600], fontSize: 16),
             ),
           ],
@@ -157,8 +220,14 @@ class _TaskList extends StatelessWidget {
                 title: const Text('Xóa công việc?'),
                 content: Text("Bạn có chắc muốn xóa '${task.title}'?"),
                 actions: [
-                  TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Hủy')),
-                  FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Xóa')),
+                  TextButton(
+                    onPressed: () => Navigator.pop(ctx, false),
+                    child: const Text('Hủy'),
+                  ),
+                  FilledButton(
+                    onPressed: () => Navigator.pop(ctx, true),
+                    child: const Text('Xóa'),
+                  ),
                 ],
               ),
             );
@@ -168,20 +237,192 @@ class _TaskList extends StatelessWidget {
             leading: showComplete
                 ? IconButton(
                     icon: const Icon(Icons.radio_button_unchecked),
-                    onPressed: () => context.read<TaskProvider>().completeTask(task.id),
+                    onPressed: () =>
+                        context.read<TaskProvider>().completeTask(task.id),
                   )
                 : const Icon(Icons.check_circle, color: Colors.green),
             title: Text(
               task.title,
               style: TextStyle(
-                decoration: task.isCompleted ? TextDecoration.lineThrough : null,
+                decoration: task.isCompleted
+                    ? TextDecoration.lineThrough
+                    : null,
                 color: task.isCompleted ? Colors.grey : null,
               ),
             ),
-            subtitle: task.dueTime != null ? Text(task.dueTime!) : null,
+            subtitle: task.dueTime != null ? Text(task.dueTimeLabel) : null,
+            trailing: IconButton(
+              icon: const Icon(Icons.edit_outlined),
+              tooltip: 'Chỉnh sửa',
+              onPressed: () => _showEditTaskDialog(context, task),
+            ),
           ),
         );
       },
+    );
+  }
+
+  void _showEditTaskDialog(BuildContext context, Task task) {
+    final controller = TextEditingController(text: task.title);
+    DateTime? selectedDateTime = task.dueDateTime?.toLocal();
+    bool isSaving = false;
+
+    showDialog(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (dialogContext, setDialogState) {
+          Future<void> submit() async {
+            if (isSaving) return;
+            final text = controller.text.trim();
+            if (text.isEmpty) return;
+
+            setDialogState(() => isSaving = true);
+            try {
+              await context.read<TaskProvider>().updateTask(
+                task.id,
+                title: text,
+                dueTime: selectedDateTime?.toIso8601String(),
+                clearDueTime: selectedDateTime == null,
+              );
+              if (ctx.mounted) Navigator.pop(ctx);
+            } catch (e) {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Không lưu được công việc: $e')),
+                );
+              }
+            } finally {
+              if (ctx.mounted) {
+                setDialogState(() => isSaving = false);
+              }
+            }
+          }
+
+          return AlertDialog(
+            title: const Text('Chỉnh sửa công việc'),
+            content: _TaskFormFields(
+              controller: controller,
+              selectedDateTime: selectedDateTime,
+              onPickDateTime: () async {
+                final value = await _pickDateTime(ctx, selectedDateTime);
+                if (value != null) {
+                  setDialogState(() => selectedDateTime = value);
+                }
+              },
+              onClearDateTime: () =>
+                  setDialogState(() => selectedDateTime = null),
+              onSubmit: submit,
+            ),
+            actions: [
+              TextButton(
+                onPressed: isSaving ? null : () => Navigator.pop(ctx),
+                child: const Text('Hủy'),
+              ),
+              FilledButton(
+                onPressed: isSaving ? null : submit,
+                child: isSaving
+                    ? const SizedBox.square(
+                        dimension: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Text('Lưu'),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Future<DateTime?> _pickDateTime(
+    BuildContext context,
+    DateTime? initial,
+  ) async {
+    final now = DateTime.now();
+    final base = initial ?? now;
+    final date = await showDatePicker(
+      context: context,
+      initialDate: base,
+      firstDate: DateTime(now.year - 1),
+      lastDate: DateTime(now.year + 5),
+    );
+    if (date == null || !context.mounted) return null;
+
+    final selectedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(base),
+    );
+    if (selectedTime == null) return null;
+
+    return DateTime(
+      date.year,
+      date.month,
+      date.day,
+      selectedTime.hour,
+      selectedTime.minute,
+    );
+  }
+}
+
+class _TaskFormFields extends StatelessWidget {
+  final TextEditingController controller;
+  final DateTime? selectedDateTime;
+  final VoidCallback onPickDateTime;
+  final VoidCallback onClearDateTime;
+  final Future<void> Function() onSubmit;
+
+  const _TaskFormFields({
+    required this.controller,
+    required this.selectedDateTime,
+    required this.onPickDateTime,
+    required this.onClearDateTime,
+    required this.onSubmit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final dueLabel = selectedDateTime == null
+        ? 'Chưa chọn ngày giờ'
+        : '${selectedDateTime!.day.toString().padLeft(2, '0')}/'
+              '${selectedDateTime!.month.toString().padLeft(2, '0')}/'
+              '${selectedDateTime!.year} '
+              '${selectedDateTime!.hour.toString().padLeft(2, '0')}:'
+              '${selectedDateTime!.minute.toString().padLeft(2, '0')}';
+
+    return SizedBox(
+      width: 360,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: controller,
+            autofocus: true,
+            decoration: const InputDecoration(
+              hintText: 'Tên công việc...',
+              border: OutlineInputBorder(),
+            ),
+            textInputAction: TextInputAction.done,
+            onSubmitted: (_) {
+              onSubmit();
+            },
+          ),
+          const SizedBox(height: 12),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.event_outlined),
+            title: const Text('Ngày giờ'),
+            subtitle: Text(dueLabel),
+            trailing: selectedDateTime == null
+                ? null
+                : IconButton(
+                    icon: const Icon(Icons.close),
+                    tooltip: 'Xóa ngày giờ',
+                    onPressed: onClearDateTime,
+                  ),
+            onTap: onPickDateTime,
+          ),
+        ],
+      ),
     );
   }
 }

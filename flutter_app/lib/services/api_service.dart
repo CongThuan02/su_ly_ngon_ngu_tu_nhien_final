@@ -10,7 +10,10 @@ class ApiService {
   ApiService({this.baseUrl = 'http://localhost:8000'});
 
   // === Chat ===
-  Future<Map<String, dynamic>> sendMessage(String message, String userId) async {
+  Future<Map<String, dynamic>> sendMessage(
+    String message,
+    String userId,
+  ) async {
     final response = await http.post(
       Uri.parse('$baseUrl/chat'),
       headers: {'Content-Type': 'application/json'},
@@ -33,7 +36,11 @@ class ApiService {
     throw Exception('Get tasks failed: ${response.statusCode}');
   }
 
-  Future<void> createTask(String title, String userId, {String? dueTime}) async {
+  Future<void> createTask(
+    String title,
+    String userId, {
+    String? dueTime,
+  }) async {
     final response = await http.post(
       Uri.parse('$baseUrl/tasks'),
       headers: {'Content-Type': 'application/json'},
@@ -57,10 +64,32 @@ class ApiService {
     }
   }
 
-  Future<void> deleteTask(String taskId) async {
-    final response = await http.delete(
+  Future<void> updateTask(
+    String taskId, {
+    String? title,
+    String? description,
+    String? dueTime,
+    bool clearDueTime = false,
+    bool? isCompleted,
+  }) async {
+    final body = <String, dynamic>{};
+    if (title != null) body['title'] = title;
+    if (description != null) body['description'] = description;
+    if (dueTime != null || clearDueTime) body['due_time'] = dueTime;
+    if (isCompleted != null) body['is_completed'] = isCompleted;
+
+    final response = await http.put(
       Uri.parse('$baseUrl/tasks/$taskId'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(body),
     );
+    if (response.statusCode != 200) {
+      throw Exception('Update task failed: ${response.statusCode}');
+    }
+  }
+
+  Future<void> deleteTask(String taskId) async {
+    final response = await http.delete(Uri.parse('$baseUrl/tasks/$taskId'));
     if (response.statusCode != 200) {
       throw Exception('Delete task failed: ${response.statusCode}');
     }

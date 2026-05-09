@@ -1,11 +1,16 @@
 import os
+import re
 from contextlib import asynccontextmanager
+from datetime import datetime
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from models.chatbot import Chatbot
+from utils.entity_extractor import extract_entities
+from utils.time_parser import VN_TZ
+from utils.time_parser import parse_due_time
 import database as db
 
 # ============ Globals ============
@@ -71,8 +76,28 @@ class TaskUpdateSchema(BaseModel):
     is_completed: bool | None = None
 
 
+def _schema_dump_set_fields(schema: BaseModel) -> dict:
+    """Return only submitted fields on both Pydantic v1 and v2."""
+    if hasattr(schema, "model_dump"):
+        return schema.model_dump(exclude_unset=True)
+    return schema.dict(exclude_unset=True)
+
+
+def _normalize_due_time(due_time: str | None) -> str | None:
+    if due_time is None:
+        return None
+
+    try:
+        datetime.fromisoformat(due_time)
+        return due_time
+    except ValueError:
+        return parse_due_time(due_time) or due_time
+
+
 CONFIRM_YES = {"có", "co", "yes", "ừ", "ok", "đồng ý", "chắc chắn", "xác nhận", "có luôn", "ừ đi"}
 CONFIRM_NO = {"không", "no", "thôi", "hủy", "cancel", "đừng", "không đâu", "thôi đi"}
+CREATE_STATEMENT_WORDS = {"cần", "phải", "sẽ", "nhớ", "muốn", "dự định"}
+LOOKUP_QUESTION_WORDS = {"bao giờ", "khi nào", "lúc nào", "ngày nào", "hạn", "deadline", "đến hạn"}
 
 
 def _filter_tasks(tasks: list[dict], status_filter: str | None = None, time_filter: str | None = None) -> list[dict]:
@@ -83,12 +108,143 @@ def _filter_tasks(tasks: list[dict], status_filter: str | None = None, time_filt
         filtered = [t for t in filtered if not t["is_completed"]]
 
     if time_filter:
-        normalized_time = time_filter.strip().lower()
-        filtered = [
-            t for t in filtered
-            if (t.get("due_time") or "").strip().lower() == normalized_time
-        ]
+        target_date = _date_from_due_time(time_filter)
+        if target_date:
+            filtered = [
+                t for t in filtered
+                if _date_from_due_time(t.get("due_time")) == target_date
+            ]
+        else:
+            normalized_time = time_filter.strip().lower()
+            filtered = [
+                t for t in filtered
+                if (t.get("due_time") or "").strip().lower() == normalized_time
+            ]
     return filtered
+
+
+def _date_from_due_time(value: str | None):
+    if not value:
+        return None
+
+    try:
+        return datetime.fromisoformat(value).astimezone(VN_TZ).date()
+    except ValueError:
+        parsed_value = parse_due_time(value)
+        if not parsed_value:
+            return None
+        try:
+            return datetime.fromisoformat(parsed_value).astimezone(VN_TZ).date()
+        except ValueError:
+            return None
+
+
+def _create_task_override(message: str) -> dict | None:
+    message_lower = message.lower()
+    if not any(word in message_lower for word in CREATE_STATEMENT_WORDS):
+        return None
+
+    entities = extract_entities(message, "create_task")
+    if not entities.get("time") or not entities.get("task_name"):
+        return None
+
+    return {
+        "intent": "create_task",
+        "confidence": 1.0,
+        "response": f"Đã tạo công việc '{entities['task_name']}'.",
+        "entities": entities,
+        "source": "rule_create",
+    }
+
+
+def _task_lookup_override(message: str) -> dict | None:
+    message_lower = message.lower()
+    if not any(word in message_lower for word in LOOKUP_QUESTION_WORDS):
+        return None
+    return {
+        "intent": "task_detail",
+        "confidence": 1.0,
+        "response": "Để tôi kiểm tra công việc đó.",
+        "entities": {},
+        "source": "rule_lookup",
+    }
+
+
+def _format_due_time(value: str | None) -> str:
+    if not value:
+        return "chưa có ngày giờ cụ thể"
+    try:
+        due = datetime.fromisoformat(value).astimezone(VN_TZ)
+        return due.strftime("%d/%m/%Y %H:%M")
+    except ValueError:
+        return value
+
+
+def _extract_lookup_task_name(message: str, entities: dict) -> str | None:
+    task_name = entities.get("task_name")
+    if task_name:
+        return task_name
+
+    text = message.lower().strip()
+    patterns = [
+        r"bao giờ\s+(.+?)\s+cần thanh toán",
+        r"khi nào\s+(.+?)\s+cần thanh toán",
+        r"(.+?)\s+cần thanh toán\s+(?:bao giờ|khi nào|lúc nào|ngày nào)",
+        r"hạn\s+(.+?)\s+(?:là|vào|ngày|bao giờ|khi nào)",
+        r"deadline\s+(.+?)\s+(?:là|vào|ngày|bao giờ|khi nào)",
+        r"(.+?)\s+đến hạn\s+(?:bao giờ|khi nào|ngày nào)",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text)
+        if match:
+            candidate = re.sub(r"\s+", " ", match.group(1)).strip()
+            if candidate:
+                return candidate
+
+    replacements = [
+        "bao giờ", "khi nào", "lúc nào", "ngày nào", "hạn", "deadline",
+        "đến hạn", "cần", "phải", "sẽ", "làm", "xong", "hoàn thành",
+        "thanh toán lúc nào", "thanh toán khi nào", "cần thanh toán",
+        "cho tôi biết", "xem", "chi tiết", "công việc", "task", "việc",
+        "là", "vậy", "nhỉ", "?", "ạ", "giúp tôi",
+    ]
+    for token in replacements:
+        text = text.replace(token, " ")
+    text = re.sub(r"\s+", " ", text).strip()
+    return text or None
+
+
+def _handle_task_lookup(intent: str, message: str, user_id: str, entities: dict) -> dict | None:
+    task_name = _extract_lookup_task_name(message, entities)
+    if not task_name:
+        return None
+
+    task = db.find_task_by_name(user_id, task_name)
+    if not task and not task_name.startswith("thanh toán "):
+        task = db.find_task_by_name(user_id, f"thanh toán {task_name}")
+    if not task and task_name.startswith("thanh toán "):
+        task = db.find_task_by_name(user_id, task_name.replace("thanh toán ", "", 1))
+
+    if not task:
+        return {
+            "intent": intent,
+            "confidence": 1.0,
+            "response": f"Không tìm thấy công việc liên quan đến '{task_name}'.",
+            "entities": {"task_name": task_name},
+            "source": "task_lookup",
+            "tasks": [],
+        }
+
+    due_label = _format_due_time(task.get("due_time"))
+    status = "đã hoàn thành" if task["is_completed"] else "chưa hoàn thành"
+    return {
+        "intent": intent,
+        "confidence": 1.0,
+        "response": f"Công việc '{task['title']}' cần làm vào {due_label}. Trạng thái: {status}.",
+        "entities": {"task_name": task["title"]},
+        "source": "task_lookup",
+        "tasks": [task],
+    }
 
 
 def _build_followup_response(intent: str, user_id: str, task_name: str, carried_entities: dict | None = None) -> dict:
@@ -97,7 +253,8 @@ def _build_followup_response(intent: str, user_id: str, task_name: str, carried_
     entities["task_name"] = task_name
 
     if intent == "create_task":
-        task = db.create_task(task_name, "", entities.get("time"), user_id)
+        due_time = parse_due_time(entities.get("time"))
+        task = db.create_task(task_name, "", due_time, user_id)
         return {
             "intent": intent,
             "confidence": 1.0,
@@ -195,7 +352,7 @@ async def chat(request: ChatRequest):
             followup.get("entities"),
         ))
 
-    result = chatbot.get_response(request.message)
+    result = _task_lookup_override(request.message) or _create_task_override(request.message) or chatbot.get_response(request.message)
     intent = result["intent"]
 
     response_data = {
@@ -210,8 +367,11 @@ async def chat(request: ChatRequest):
     if intent == "create_task":
         task_name = result["entities"].get("task_name")
         if task_name:
-            task = db.create_task(task_name, "", result["entities"].get("time"), user_id)
+            due_time = parse_due_time(request.message) or parse_due_time(result["entities"].get("time"))
+            task = db.create_task(task_name, "", due_time, user_id)
             response_data["response"] = f"Đã tạo công việc '{task_name}'."
+            if due_time:
+                response_data["entities"]["due_time"] = due_time
             response_data["tasks"] = [task]
         else:
             waiting_for[user_id] = {"intent": intent, "entities": result.get("entities", {})}
@@ -262,6 +422,11 @@ async def chat(request: ChatRequest):
                 response_data["response"] = f"Danh sách công việc {time_filter}:"
             else:
                 response_data["response"] = f"Có {len(tasks)} công việc sắp tới:"
+
+    elif intent in {"search_task", "task_detail", "deadline_management"}:
+        lookup = _handle_task_lookup(intent, request.message, user_id, result.get("entities", {}))
+        if lookup:
+            return ChatResponse(**lookup)
 
     elif intent == "status_update":
         task_name = result["entities"].get("task_name")
@@ -356,7 +521,8 @@ def _handle_confirm_yes(action: dict, user_id: str) -> dict:
 # ============ Task REST Endpoints ============
 @app.post("/tasks")
 async def create_task(task: TaskCreateSchema):
-    return db.create_task(task.title, task.description, task.due_time, task.user_id)
+    due_time = _normalize_due_time(task.due_time)
+    return db.create_task(task.title, task.description, due_time, task.user_id)
 
 
 @app.get("/tasks/{user_id}")
@@ -370,7 +536,9 @@ async def update_task(task_id: str, task: TaskUpdateSchema):
     if not existing:
         raise HTTPException(status_code=404, detail="Task not found")
 
-    update_data = {k: v for k, v in task.model_dump().items() if v is not None}
+    update_data = _schema_dump_set_fields(task)
+    if "due_time" in update_data:
+        update_data["due_time"] = _normalize_due_time(update_data["due_time"])
     if not update_data:
         raise HTTPException(status_code=400, detail="No fields to update")
 

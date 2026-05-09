@@ -54,7 +54,32 @@
     "Đã tạo công việc 'làm đi tiệc cùng bạn bè'.",
     "Đã tạo công việc 'đi tiệc cùng bạn bè'.",
     "Đã tạo công việc 'học xử lý ngôn ngữ tự nhiên'.",
-    "Đã tạo công việc 'đi chơi với bạn bè 1 mình'."
+    "Đã tạo công việc 'đi chơi với bạn bè 1 mình'.",
+    "Đã tạo công việc 'thanh toán thẻ tín dụng'.",
+    "Đã tạo công việc 'đóng tiền điện'.",
+    "Đã tạo công việc 'trả tiền internet'.",
+    "Đã tạo công việc 'nộp báo cáo tài chính'.",
+    "Đã tạo công việc 'họp với khách hàng'.",
+    "Đã tạo công việc 'gọi điện cho mẹ'.",
+    "Đã tạo công việc 'đi khám sức khỏe'.",
+    "Đã tạo công việc 'gia hạn bảo hiểm xe'.",
+    "Đã tạo công việc 'đóng học phí'.",
+    "Đã tạo công việc 'đóng tiền nhà'.",
+    "Đã tạo công việc 'gửi hợp đồng cho đối tác'.",
+    "Đã tạo công việc 'mua quà sinh nhật cho bạn'.",
+    "Đã tạo công việc 'uống thuốc'.",
+    "Đã tạo công việc 'họp sprint planning'.",
+    "Đã tạo công việc 'gọi khách hàng'.",
+    "Đã tạo công việc 'gửi email báo giá'.",
+    "Đã tạo công việc 'chuẩn bị slide thuyết trình'.",
+    "Đã tạo công việc 'xem lại tài liệu NLP'.",
+    "Đã tạo công việc 'nộp tiền thuê nhà'.",
+    "Đã tạo công việc 'dọn phòng'.",
+    "Đã tạo công việc 'mua đồ ăn cho cả tuần'.",
+    "Đã tạo công việc 'kiểm tra bug production'.",
+    "Đã tạo công việc 'bảo trì laptop'.",
+    "Đã tạo công việc 'gia hạn domain website'.",
+    "Đã tạo công việc 'kiểm tra sức khỏe tổng quát'."
   ],
   "list_tasks": [
     "Danh sách công việc của bạn:\n1. Viết báo cáo tháng 3 - Chưa bắt đầu\n2. Thiết kế website - Đang thực hiện\n3. Họp khách hàng - Sắp tới",
@@ -139,7 +164,10 @@
     "Đã sửa 'training': địa điểm phòng 301.",
     "Bạn muốn cập nhật gì cho 'viết tài liệu'?",
     "Đã đổi tên: 'sửa bug' → 'fix critical bug'.",
-    "Bạn muốn thay đổi gì?"
+    "Bạn muốn thay đổi gì?",
+    "Đã cập nhật công việc 'báo cáo'.",
+    "Đã cập nhật công việc 'họp nhóm'.",
+    "Đã cập nhật công việc 'khám sức khỏe'."
   ],
   "status_update": [
     "Trạng thái 'Thiết kế website': Hoàn thành",
@@ -302,7 +330,8 @@
     "Deadline trong tháng 4:",
     "Đã đặt nhắc nhở trước deadline 1 ngày.",
     "Công việc theo thứ tự deadline:",
-    "Hạn chót sớm nhất:"
+    "Hạn chót sớm nhất:",
+    "Đã cập nhật hạn chót."
   ],
   "priority_management": [
     "Độ ưu tiên của 'Họp khách hàng' được thay đổi thành: CAO (Mức độ: 1/3)",
@@ -436,7 +465,8 @@
     "Ví dụ: 'Thêm công việc nộp báo cáo hạn ngày mai ưu tiên cao'. Bạn thử nhé!",
     "Có! Nói 'Tìm [từ khóa]' hoặc 'Tìm công việc liên quan [chủ đề]'",
     "Nói 'Thống kê công việc' hoặc 'Báo cáo tiến độ' nhé!",
-    "Đúng rồi! Tôi hỗ trợ hoàn toàn bằng tiếng Việt. Cứ nói tự nhiên nhé!"
+    "Đúng rồi! Tôi hỗ trợ hoàn toàn bằng tiếng Việt. Cứ nói tự nhiên nhé!",
+    "Tôi có thể giúp: thêm/sửa/xóa task, nhắc nhở, thống kê. Bạn cần gì?"
   ],
   "complete_all_tasks": [
     "Bạn có chắc muốn đánh dấu hoàn thành TẤT CẢ công việc không? Hiện có 8 công việc chưa hoàn thành. Hãy xác nhận 'Có' hoặc 'Không'.",
@@ -594,7 +624,8 @@
     "Tôi được tạo ra trong đồ án Xử lý Ngôn ngữ Tự nhiên!",
     "Tôi sử dụng LSTM (deep learning) để hiểu ngôn ngữ tiếng Việt!",
     "Backend Python + FastAPI, Frontend Flutter, NLP bằng LSTM!",
-    "Tôi được train trước với dữ liệu tiếng Việt về quản lý công việc!"
+    "Tôi được train trước với dữ liệu tiếng Việt về quản lý công việc!",
+    "Tôi là chatbot quản lý công việc."
   ],
   "task_today": [
     "Công việc hôm nay của bạn:\n1. Họp nhóm dự án - 09:00\n2. Viết báo cáo - 14:00\n3. Review code - 16:00",
@@ -622,7 +653,8 @@
     "Kế hoạch hôm nay:",
     "Kiểm tra meeting sáng nay:",
     "Tổng hợp công việc hôm nay:",
-    "Công việc hôm nay:"
+    "Công việc hôm nay:",
+    "Đây là công việc hôm nay:"
   ],
   "task_overdue": [
     "Các công việc đã quá hạn:\n1. Viết báo cáo - Quá hạn 2 ngày\n2. Nộp tài liệu - Quá hạn 1 ngày",
@@ -731,7 +763,8 @@
     "Task hoàn thành gần đây:",
     "Task chưa có deadline:",
     "Task theo tiến độ:",
-    "Task chưa được gán:"
+    "Task chưa được gán:",
+    "Để tôi sắp xếp lại."
   ],
   "add_note": [
     "Bạn muốn thêm ghi chú gì cho công việc 'Viết báo cáo'?",

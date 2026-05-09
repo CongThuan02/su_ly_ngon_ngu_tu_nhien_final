@@ -212,9 +212,23 @@ def extract_entities(text: str, intent: str) -> dict:
             after = re.sub(r"^((?:ngày\s*)?\d{1,2}[/-]\d{1,2}(?:[/-]\d{2,4})?)\s+", "", after).strip()
             after = re.sub(r"^(ngày\s+\d{1,2})(?![/-])\s+", "", after).strip()
             after = re.sub(r"^(hôm nay|ngày mai|hôm qua|chiều nay|sáng mai|tối nay|tuần sau|tháng sau)\s+", "", after).strip()
+            after = re.sub(r"(?:lúc|vào|vào lúc)?\s*\d{1,2}\s*(?:giờ|h|:)\s*\d{0,2}\s*(?:sáng|chiều|tối|phút)?", " ", after).strip()
+            after = re.sub(r"(ngày mai|hôm nay|hôm qua|chiều nay|sáng mai|tối nay|tuần sau|tháng sau)", " ", after).strip()
+            after = re.sub(r"\s{2,}", " ", after).strip()
             after = re.sub(r"\s+(cho|vào|lúc|là)$", "", after).strip()
             if after and after not in GENERIC_TASK_NAMES:
                 entities["task_name"] = after
             break
+
+    if "task_name" not in entities and (normalized_intent in CREATE_LIKE or intent in CREATE_LIKE):
+        candidate = text_lower
+        candidate = re.sub(r"^(tôi đang bảo|mình đang bảo|tôi|mình|em|anh|chị)\s+", "", candidate).strip()
+        action_match = re.search(r"(?:cần|phải|sẽ|nhớ|muốn|dự định)\s+(.+)", candidate)
+        if action_match:
+            candidate = action_match.group(1).strip()
+        candidate = re.sub(r"^(làm|thực hiện|đi|việc)\s+", "", candidate).strip()
+        candidate = re.sub(r"\s+(cho|vào|lúc|là)$", "", candidate).strip()
+        if candidate and candidate not in GENERIC_TASK_NAMES:
+            entities["task_name"] = candidate
 
     return entities

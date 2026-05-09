@@ -37,6 +37,21 @@ class TaskProvider extends ChangeNotifier {
     await loadTasks();
   }
 
+  Future<void> updateTask(
+    String taskId, {
+    String? title,
+    String? dueTime,
+    bool clearDueTime = false,
+  }) async {
+    await _api.updateTask(
+      taskId,
+      title: title,
+      dueTime: dueTime,
+      clearDueTime: clearDueTime,
+    );
+    await loadTasks();
+  }
+
   Future<void> deleteTask(String taskId) async {
     await _api.deleteTask(taskId);
     await loadTasks();

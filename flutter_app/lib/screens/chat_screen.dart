@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../providers/chat_provider.dart';
 import '../models/chat_message.dart';
@@ -18,7 +19,10 @@ class _ChatScreenState extends State<ChatScreen> {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
     _controller.clear();
-    context.read<ChatProvider>().sendMessage(text).then((_) => _scrollToBottom());
+    context
+        .read<ChatProvider>()
+        .sendMessage(text)
+        .then((_) => _scrollToBottom());
     _scrollToBottom();
   }
 
@@ -65,7 +69,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 }
                 return ListView.builder(
                   controller: _scrollController,
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   itemCount: chat.messages.length + (chat.isLoading ? 1 : 0),
                   itemBuilder: (context, index) {
                     if (index == chat.messages.length) {
@@ -110,8 +117,13 @@ class _ChatScreenState extends State<ChatScreen> {
                     borderSide: BorderSide.none,
                   ),
                   filled: true,
-                  fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  fillColor: Theme.of(
+                    context,
+                  ).colorScheme.surfaceContainerHighest,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
+                  ),
                 ),
                 textInputAction: TextInputAction.send,
                 onSubmitted: (_) => _send(),
@@ -198,7 +210,9 @@ class _ChatBubble extends StatelessWidget {
         ),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          color: isUser ? colorScheme.primary : colorScheme.surfaceContainerHighest,
+          color: isUser
+              ? colorScheme.primary
+              : colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(16),
             topRight: const Radius.circular(16),
@@ -226,7 +240,9 @@ class _ChatBubble extends StatelessWidget {
                   child: Row(
                     children: [
                       Icon(
-                        isCompleted ? Icons.check_circle : Icons.radio_button_unchecked,
+                        isCompleted
+                            ? Icons.check_circle
+                            : Icons.radio_button_unchecked,
                         size: 16,
                         color: isCompleted ? Colors.green : Colors.grey[600],
                       ),
@@ -237,14 +253,19 @@ class _ChatBubble extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 14,
                             color: colorScheme.onSurface,
-                            decoration: isCompleted ? TextDecoration.lineThrough : null,
+                            decoration: isCompleted
+                                ? TextDecoration.lineThrough
+                                : null,
                           ),
                         ),
                       ),
                       if (task['due_time'] != null)
                         Text(
-                          task['due_time'],
-                          style: TextStyle(fontSize: 11, color: Colors.grey[500]),
+                          _formatTaskTime(task['due_time'].toString()),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey[500],
+                          ),
                         ),
                     ],
                   ),
@@ -265,6 +286,12 @@ class _ChatBubble extends StatelessWidget {
   }
 }
 
+String _formatTaskTime(String value) {
+  final date = DateTime.tryParse(value);
+  if (date == null) return value;
+  return DateFormat('dd/MM HH:mm').format(date.toLocal());
+}
+
 class _TypingIndicator extends StatelessWidget {
   const _TypingIndicator();
 
@@ -283,11 +310,7 @@ class _TypingIndicator extends StatelessWidget {
           width: 48,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _Dot(delay: 0),
-              _Dot(delay: 200),
-              _Dot(delay: 400),
-            ],
+            children: [_Dot(delay: 0), _Dot(delay: 200), _Dot(delay: 400)],
           ),
         ),
       ),
@@ -310,8 +333,10 @@ class _DotState extends State<_Dot> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _ctrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 600))
-      ..repeat(reverse: true);
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    )..repeat(reverse: true);
     _anim = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _ctrl, curve: Interval(widget.delay / 1000, 1.0)),
     );
@@ -327,7 +352,7 @@ class _DotState extends State<_Dot> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _anim,
-      builder: (_, __) => Opacity(
+      builder: (context, child) => Opacity(
         opacity: 0.3 + _anim.value * 0.7,
         child: Container(
           width: 8,

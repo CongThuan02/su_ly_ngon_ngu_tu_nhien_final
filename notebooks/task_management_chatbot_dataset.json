@@ -3,44 +3,44 @@
     "name": "Task Management Chatbot Dataset - Vietnamese",
     "description": "Comprehensive dataset for training and testing Vietnamese task management chatbot",
     "language": "Vietnamese",
-    "total_samples": 1077,
-    "training_samples": 967,
-    "test_samples": 110,
+    "total_samples": 1226,
+    "training_samples": 1079,
+    "test_samples": 147,
     "categories": [
-      "create_task",
-      "list_tasks",
-      "update_task",
-      "delete_task",
-      "search_task",
+      "add_note",
       "assign_task",
-      "deadline_management",
-      "priority_management",
-      "status_update",
-      "statistics",
-      "reminder",
+      "bot_identity",
       "collaboration",
-      "general_help",
       "complete_all_tasks",
-      "delete_all_tasks",
       "confirm_complete",
       "confirm_delete",
-      "greeting",
-      "goodbye",
-      "thank_you",
-      "bot_identity",
-      "task_today",
-      "task_overdue",
-      "task_upcoming",
-      "task_by_category",
-      "sort_tasks",
-      "add_note",
-      "task_detail",
-      "reschedule",
-      "set_duration",
+      "create_task",
+      "deadline_management",
+      "delete_all_tasks",
+      "delete_task",
       "feeling_overwhelmed",
       "feeling_productive",
+      "general_help",
+      "goodbye",
+      "greeting",
+      "list_tasks",
       "motivation",
-      "out_of_scope"
+      "out_of_scope",
+      "priority_management",
+      "reminder",
+      "reschedule",
+      "search_task",
+      "set_duration",
+      "sort_tasks",
+      "statistics",
+      "status_update",
+      "task_by_category",
+      "task_detail",
+      "task_overdue",
+      "task_today",
+      "task_upcoming",
+      "thank_you",
+      "update_task"
     ]
   },
   "training_data": [
@@ -9691,6 +9691,863 @@
       "entities": {
         "time": "ngày 26"
       }
+    },
+    {
+      "id": "train_1002",
+      "category": "create_task",
+      "user_input": "ngày 22 tôi cần thanh toán thẻ tín dụng",
+      "expected_output": "Đã tạo công việc 'thanh toán thẻ tín dụng'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "thanh toán thẻ tín dụng",
+        "time": "ngày 22"
+      }
+    },
+    {
+      "id": "train_1003",
+      "category": "create_task",
+      "user_input": "ngày 22 mình cần thanh toán thẻ tín dụng",
+      "expected_output": "Đã tạo công việc 'thanh toán thẻ tín dụng'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "thanh toán thẻ tín dụng",
+        "time": "ngày 22"
+      }
+    },
+    {
+      "id": "train_1004",
+      "category": "create_task",
+      "user_input": "ngày 22 em phải thanh toán thẻ tín dụng",
+      "expected_output": "Đã tạo công việc 'thanh toán thẻ tín dụng'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "thanh toán thẻ tín dụng",
+        "time": "ngày 22"
+      }
+    },
+    {
+      "id": "train_1005",
+      "category": "create_task",
+      "user_input": "tôi cần thanh toán thẻ tín dụng ngày 22",
+      "expected_output": "Đã tạo công việc 'thanh toán thẻ tín dụng'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "thanh toán thẻ tín dụng",
+        "time": "ngày 22"
+      }
+    },
+    {
+      "id": "train_1006",
+      "category": "create_task",
+      "user_input": "mình phải thanh toán thẻ tín dụng ngày 22",
+      "expected_output": "Đã tạo công việc 'thanh toán thẻ tín dụng'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "thanh toán thẻ tín dụng",
+        "time": "ngày 22"
+      }
+    },
+    {
+      "id": "train_1007",
+      "category": "create_task",
+      "user_input": "nhắc tôi ngày 22 thanh toán thẻ tín dụng",
+      "expected_output": "Đã tạo công việc 'thanh toán thẻ tín dụng'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "thanh toán thẻ tín dụng",
+        "time": "ngày 22"
+      }
+    },
+    {
+      "id": "train_1008",
+      "category": "create_task",
+      "user_input": "ngày 15 tôi cần đóng tiền điện",
+      "expected_output": "Đã tạo công việc 'đóng tiền điện'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đóng tiền điện",
+        "time": "ngày 15"
+      }
+    },
+    {
+      "id": "train_1009",
+      "category": "create_task",
+      "user_input": "ngày 15 đóng tiền điện giúp tôi",
+      "expected_output": "Đã tạo công việc 'đóng tiền điện'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đóng tiền điện",
+        "time": "ngày 15"
+      }
+    },
+    {
+      "id": "train_1010",
+      "category": "create_task",
+      "user_input": "tôi phải đóng tiền điện ngày 15",
+      "expected_output": "Đã tạo công việc 'đóng tiền điện'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đóng tiền điện",
+        "time": "ngày 15"
+      }
+    },
+    {
+      "id": "train_1011",
+      "category": "create_task",
+      "user_input": "ngày 10 tôi cần trả tiền internet",
+      "expected_output": "Đã tạo công việc 'trả tiền internet'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "trả tiền internet",
+        "time": "ngày 10"
+      }
+    },
+    {
+      "id": "train_1012",
+      "category": "create_task",
+      "user_input": "ngày 10 nhớ trả tiền internet",
+      "expected_output": "Đã tạo công việc 'trả tiền internet'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "trả tiền internet",
+        "time": "ngày 10"
+      }
+    },
+    {
+      "id": "train_1013",
+      "category": "create_task",
+      "user_input": "ngày mai tôi cần nộp báo cáo tài chính",
+      "expected_output": "Đã tạo công việc 'nộp báo cáo tài chính'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "nộp báo cáo tài chính",
+        "time": "ngày mai"
+      }
+    },
+    {
+      "id": "train_1014",
+      "category": "create_task",
+      "user_input": "tôi cần nộp báo cáo tài chính ngày mai",
+      "expected_output": "Đã tạo công việc 'nộp báo cáo tài chính'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "nộp báo cáo tài chính",
+        "time": "ngày mai"
+      }
+    },
+    {
+      "id": "train_1015",
+      "category": "create_task",
+      "user_input": "mai mình phải nộp báo cáo tài chính",
+      "expected_output": "Đã tạo công việc 'nộp báo cáo tài chính'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "nộp báo cáo tài chính",
+        "time": "mai"
+      }
+    },
+    {
+      "id": "train_1016",
+      "category": "create_task",
+      "user_input": "ngày mai nhớ họp với khách hàng",
+      "expected_output": "Đã tạo công việc 'họp với khách hàng'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "họp với khách hàng",
+        "time": "ngày mai"
+      }
+    },
+    {
+      "id": "train_1017",
+      "category": "create_task",
+      "user_input": "tối nay tôi cần gọi điện cho mẹ",
+      "expected_output": "Đã tạo công việc 'gọi điện cho mẹ'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "gọi điện cho mẹ",
+        "time": "tối nay"
+      }
+    },
+    {
+      "id": "train_1018",
+      "category": "create_task",
+      "user_input": "sáng mai tôi phải đi khám sức khỏe",
+      "expected_output": "Đã tạo công việc 'đi khám sức khỏe'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đi khám sức khỏe",
+        "time": "sáng mai"
+      }
+    },
+    {
+      "id": "train_1019",
+      "category": "create_task",
+      "user_input": "tuần sau tôi sẽ đi khám sức khỏe",
+      "expected_output": "Đã tạo công việc 'đi khám sức khỏe'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đi khám sức khỏe",
+        "time": "tuần sau"
+      }
+    },
+    {
+      "id": "train_1020",
+      "category": "create_task",
+      "user_input": "tuần sau phải gia hạn bảo hiểm xe",
+      "expected_output": "Đã tạo công việc 'gia hạn bảo hiểm xe'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "gia hạn bảo hiểm xe",
+        "time": "tuần sau"
+      }
+    },
+    {
+      "id": "train_1021",
+      "category": "create_task",
+      "user_input": "tháng sau tôi cần đóng học phí",
+      "expected_output": "Đã tạo công việc 'đóng học phí'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đóng học phí",
+        "time": "tháng sau"
+      }
+    },
+    {
+      "id": "train_1022",
+      "category": "create_task",
+      "user_input": "15/05 tôi cần đóng tiền nhà",
+      "expected_output": "Đã tạo công việc 'đóng tiền nhà'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đóng tiền nhà",
+        "time": "15/05"
+      }
+    },
+    {
+      "id": "train_1023",
+      "category": "create_task",
+      "user_input": "20/05 mình phải gửi hợp đồng cho đối tác",
+      "expected_output": "Đã tạo công việc 'gửi hợp đồng cho đối tác'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "gửi hợp đồng cho đối tác",
+        "time": "20/05"
+      }
+    },
+    {
+      "id": "train_1024",
+      "category": "create_task",
+      "user_input": "25/05 nhớ mua quà sinh nhật cho bạn",
+      "expected_output": "Đã tạo công việc 'mua quà sinh nhật cho bạn'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "mua quà sinh nhật cho bạn",
+        "time": "25/05"
+      }
+    },
+    {
+      "id": "train_1025",
+      "category": "create_task",
+      "user_input": "8 giờ tối nay tôi cần uống thuốc",
+      "expected_output": "Đã tạo công việc 'uống thuốc'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "uống thuốc",
+        "time": "8 giờ tối"
+      }
+    },
+    {
+      "id": "train_1026",
+      "category": "create_task",
+      "user_input": "14:30 ngày mai họp sprint planning",
+      "expected_output": "Đã tạo công việc 'họp sprint planning'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "họp sprint planning",
+        "time": "14:30"
+      }
+    },
+    {
+      "id": "train_1027",
+      "category": "create_task",
+      "user_input": "3 giờ chiều mai gọi khách hàng",
+      "expected_output": "Đã tạo công việc 'gọi khách hàng'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "gọi khách hàng",
+        "time": "3 giờ chiều"
+      }
+    },
+    {
+      "id": "train_1028",
+      "category": "create_task",
+      "user_input": "chiều nay tôi cần gửi email báo giá",
+      "expected_output": "Đã tạo công việc 'gửi email báo giá'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "gửi email báo giá",
+        "time": "chiều nay"
+      }
+    },
+    {
+      "id": "train_1029",
+      "category": "create_task",
+      "user_input": "sáng mai chuẩn bị slide thuyết trình",
+      "expected_output": "Đã tạo công việc 'chuẩn bị slide thuyết trình'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "chuẩn bị slide thuyết trình",
+        "time": "sáng mai"
+      }
+    },
+    {
+      "id": "train_1030",
+      "category": "create_task",
+      "user_input": "tối nay xem lại tài liệu NLP",
+      "expected_output": "Đã tạo công việc 'xem lại tài liệu NLP'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "xem lại tài liệu NLP",
+        "time": "tối nay"
+      }
+    },
+    {
+      "id": "train_1031",
+      "category": "create_task",
+      "user_input": "ngày 22 có hạn thanh toán thẻ tín dụng",
+      "expected_output": "Đã tạo công việc 'thanh toán thẻ tín dụng'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "thanh toán thẻ tín dụng",
+        "time": "ngày 22"
+      }
+    },
+    {
+      "id": "train_1032",
+      "category": "create_task",
+      "user_input": "ngày 18 đến hạn nộp tiền thuê nhà",
+      "expected_output": "Đã tạo công việc 'nộp tiền thuê nhà'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "nộp tiền thuê nhà",
+        "time": "ngày 18"
+      }
+    },
+    {
+      "id": "train_1033",
+      "category": "create_task",
+      "user_input": "cuối tuần này tôi cần dọn phòng",
+      "expected_output": "Đã tạo công việc 'dọn phòng'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "dọn phòng",
+        "time": "cuối tuần này"
+      }
+    },
+    {
+      "id": "train_1034",
+      "category": "create_task",
+      "user_input": "mai cần mua đồ ăn cho cả tuần",
+      "expected_output": "Đã tạo công việc 'mua đồ ăn cho cả tuần'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "mua đồ ăn cho cả tuần",
+        "time": "mai"
+      }
+    },
+    {
+      "id": "train_1035",
+      "category": "create_task",
+      "user_input": "ngày mai cần kiểm tra bug production",
+      "expected_output": "Đã tạo công việc 'kiểm tra bug production'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "kiểm tra bug production",
+        "time": "ngày mai"
+      }
+    },
+    {
+      "id": "train_1036",
+      "category": "create_task",
+      "user_input": "tôi có việc phải làm ngày 12 là bảo trì laptop",
+      "expected_output": "Đã tạo công việc 'bảo trì laptop'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "bảo trì laptop",
+        "time": "ngày 12"
+      }
+    },
+    {
+      "id": "train_1037",
+      "category": "create_task",
+      "user_input": "ngày 12 việc cần làm là bảo trì laptop",
+      "expected_output": "Đã tạo công việc 'bảo trì laptop'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "bảo trì laptop",
+        "time": "ngày 12"
+      }
+    },
+    {
+      "id": "train_1038",
+      "category": "create_task",
+      "user_input": "lưu giúp tôi ngày 30 gia hạn domain website",
+      "expected_output": "Đã tạo công việc 'gia hạn domain website'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "gia hạn domain website",
+        "time": "ngày 30"
+      }
+    },
+    {
+      "id": "train_1039",
+      "category": "create_task",
+      "user_input": "ghi lại ngày 30 gia hạn domain website",
+      "expected_output": "Đã tạo công việc 'gia hạn domain website'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "gia hạn domain website",
+        "time": "ngày 30"
+      }
+    },
+    {
+      "id": "train_1040",
+      "category": "create_task",
+      "user_input": "đặt lịch ngày 28 kiểm tra sức khỏe tổng quát",
+      "expected_output": "Đã tạo công việc 'kiểm tra sức khỏe tổng quát'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "kiểm tra sức khỏe tổng quát",
+        "time": "ngày 28"
+      }
+    },
+    {
+      "id": "train_1041",
+      "category": "create_task",
+      "user_input": "ngày 28 có lịch kiểm tra sức khỏe tổng quát",
+      "expected_output": "Đã tạo công việc 'kiểm tra sức khỏe tổng quát'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "kiểm tra sức khỏe tổng quát",
+        "time": "ngày 28"
+      }
+    },
+    {
+      "id": "train_1042",
+      "category": "task_upcoming",
+      "user_input": "ngày 22 tôi có việc gì",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày 22"
+      }
+    },
+    {
+      "id": "train_1043",
+      "category": "task_upcoming",
+      "user_input": "ngày 22 cần làm gì",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày 22"
+      }
+    },
+    {
+      "id": "train_1044",
+      "category": "task_upcoming",
+      "user_input": "ngày 15 có công việc nào không",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày 15"
+      }
+    },
+    {
+      "id": "train_1045",
+      "category": "task_upcoming",
+      "user_input": "15/05 tôi có việc gì",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "15/05"
+      }
+    },
+    {
+      "id": "train_1046",
+      "category": "task_upcoming",
+      "user_input": "ngày mai tôi có lịch gì",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày mai"
+      }
+    },
+    {
+      "id": "train_1047",
+      "category": "task_upcoming",
+      "user_input": "mai có việc gì cần làm",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "mai"
+      }
+    },
+    {
+      "id": "train_1048",
+      "category": "task_upcoming",
+      "user_input": "tuần sau còn việc gì không",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "tuần sau"
+      }
+    },
+    {
+      "id": "train_1049",
+      "category": "task_today",
+      "user_input": "hôm nay còn việc gì chưa làm",
+      "expected_output": "Đây là công việc hôm nay:",
+      "intent": "task_today",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_1050",
+      "category": "task_today",
+      "user_input": "hôm nay tôi có lịch gì",
+      "expected_output": "Đây là công việc hôm nay:",
+      "intent": "task_today",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "train_1051",
+      "category": "list_tasks",
+      "user_input": "liệt kê các việc chưa xong",
+      "expected_output": "Đây là danh sách công việc của bạn:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "pending"
+      }
+    },
+    {
+      "id": "train_1052",
+      "category": "list_tasks",
+      "user_input": "việc nào đã xong rồi",
+      "expected_output": "Đây là danh sách công việc của bạn:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "completed"
+      }
+    },
+    {
+      "id": "train_1053",
+      "category": "update_task",
+      "user_input": "đổi tên công việc 'báo cáo' thành 'báo cáo cuối kỳ'",
+      "expected_output": "Đã cập nhật công việc 'báo cáo'.",
+      "intent": "update_task",
+      "entities": {
+        "task_name": "báo cáo"
+      }
+    },
+    {
+      "id": "train_1054",
+      "category": "update_task",
+      "user_input": "sửa việc 'họp nhóm' sang 'họp nhóm NLP'",
+      "expected_output": "Đã cập nhật công việc 'họp nhóm'.",
+      "intent": "update_task",
+      "entities": {
+        "task_name": "họp nhóm"
+      }
+    },
+    {
+      "id": "train_1055",
+      "category": "update_task",
+      "user_input": "cập nhật thời gian của 'khám sức khỏe' sang ngày 28",
+      "expected_output": "Đã cập nhật công việc 'khám sức khỏe'.",
+      "intent": "update_task",
+      "entities": {
+        "task_name": "khám sức khỏe",
+        "time": "ngày 28"
+      }
+    },
+    {
+      "id": "train_1056",
+      "category": "deadline_management",
+      "user_input": "kéo dài hạn nộp báo cáo thêm 3 ngày",
+      "expected_output": "Đã cập nhật hạn chót.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "nộp báo cáo"
+      }
+    },
+    {
+      "id": "train_1057",
+      "category": "deadline_management",
+      "user_input": "gia hạn công việc thanh toán thẻ thêm 2 ngày",
+      "expected_output": "Đã cập nhật hạn chót.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "thanh toán thẻ"
+      }
+    },
+    {
+      "id": "train_1058",
+      "category": "deadline_management",
+      "user_input": "việc nào sắp đến hạn thanh toán",
+      "expected_output": "Các công việc sắp đến hạn:",
+      "intent": "deadline_management",
+      "entities": {}
+    },
+    {
+      "id": "train_1059",
+      "category": "general_help",
+      "user_input": "tôi chưa biết dùng app này như thế nào",
+      "expected_output": "Tôi có thể giúp: thêm/sửa/xóa task, nhắc nhở, thống kê. Bạn cần gì?",
+      "intent": "general_help",
+      "entities": {}
+    },
+    {
+      "id": "train_1060",
+      "category": "general_help",
+      "user_input": "hướng dẫn tôi tạo và xem công việc",
+      "expected_output": "Tôi có thể giúp: thêm/sửa/xóa task, nhắc nhở, thống kê. Bạn cần gì?",
+      "intent": "general_help",
+      "entities": {}
+    },
+    {
+      "id": "train_1061",
+      "category": "bot_identity",
+      "user_input": "bạn là chatbot gì",
+      "expected_output": "Tôi là chatbot quản lý công việc.",
+      "intent": "bot_identity",
+      "entities": {}
+    },
+    {
+      "id": "train_1062",
+      "category": "bot_identity",
+      "user_input": "ứng dụng này là gì vậy",
+      "expected_output": "Tôi là chatbot quản lý công việc.",
+      "intent": "bot_identity",
+      "entities": {}
+    },
+    {
+      "id": "train_1063",
+      "category": "sort_tasks",
+      "user_input": "sắp xếp việc theo độ ưu tiên",
+      "expected_output": "Để tôi sắp xếp lại.",
+      "intent": "sort_tasks",
+      "entities": {}
+    },
+    {
+      "id": "train_1064",
+      "category": "sort_tasks",
+      "user_input": "xếp danh sách theo ngày gần nhất",
+      "expected_output": "Để tôi sắp xếp lại.",
+      "intent": "sort_tasks",
+      "entities": {}
+    },
+    {
+      "id": "train_1065",
+      "category": "task_detail",
+      "user_input": "bao giờ thẻ tín dụng cần thanh toán",
+      "expected_output": "Chi tiết công việc 'thẻ tín dụng'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "thẻ tín dụng"
+      }
+    },
+    {
+      "id": "train_1066",
+      "category": "task_detail",
+      "user_input": "khi nào thẻ tín dụng cần thanh toán",
+      "expected_output": "Chi tiết công việc 'thẻ tín dụng'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "thẻ tín dụng"
+      }
+    },
+    {
+      "id": "train_1067",
+      "category": "task_detail",
+      "user_input": "thẻ tín dụng cần thanh toán lúc nào",
+      "expected_output": "Chi tiết công việc 'thẻ tín dụng'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "thẻ tín dụng"
+      }
+    },
+    {
+      "id": "train_1068",
+      "category": "deadline_management",
+      "user_input": "hạn thanh toán thẻ tín dụng là ngày nào",
+      "expected_output": "Hạn của công việc 'thẻ tín dụng'.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "thẻ tín dụng"
+      }
+    },
+    {
+      "id": "train_1069",
+      "category": "deadline_management",
+      "user_input": "deadline thanh toán thẻ tín dụng là khi nào",
+      "expected_output": "Hạn của công việc 'thẻ tín dụng'.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "thẻ tín dụng"
+      }
+    },
+    {
+      "id": "train_1070",
+      "category": "deadline_management",
+      "user_input": "thẻ tín dụng đến hạn bao giờ",
+      "expected_output": "Hạn của công việc 'thẻ tín dụng'.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "thẻ tín dụng"
+      }
+    },
+    {
+      "id": "train_1071",
+      "category": "task_detail",
+      "user_input": "bao giờ cần đóng tiền điện",
+      "expected_output": "Chi tiết công việc 'đóng tiền điện'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "đóng tiền điện"
+      }
+    },
+    {
+      "id": "train_1072",
+      "category": "task_detail",
+      "user_input": "khi nào phải đóng tiền điện",
+      "expected_output": "Chi tiết công việc 'đóng tiền điện'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "đóng tiền điện"
+      }
+    },
+    {
+      "id": "train_1073",
+      "category": "deadline_management",
+      "user_input": "hạn đóng tiền điện là ngày nào",
+      "expected_output": "Hạn của công việc 'đóng tiền điện'.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "đóng tiền điện"
+      }
+    },
+    {
+      "id": "train_1074",
+      "category": "task_detail",
+      "user_input": "bao giờ cần nộp báo cáo tài chính",
+      "expected_output": "Chi tiết công việc 'nộp báo cáo tài chính'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "nộp báo cáo tài chính"
+      }
+    },
+    {
+      "id": "train_1075",
+      "category": "deadline_management",
+      "user_input": "báo cáo tài chính hạn ngày nào",
+      "expected_output": "Hạn của công việc 'báo cáo tài chính'.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "báo cáo tài chính"
+      }
+    },
+    {
+      "id": "train_1076",
+      "category": "task_detail",
+      "user_input": "khi nào tôi cần đi khám sức khỏe",
+      "expected_output": "Chi tiết công việc 'đi khám sức khỏe'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "đi khám sức khỏe"
+      }
+    },
+    {
+      "id": "train_1077",
+      "category": "deadline_management",
+      "user_input": "lịch khám sức khỏe đến hạn khi nào",
+      "expected_output": "Hạn của công việc 'khám sức khỏe'.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "khám sức khỏe"
+      }
+    },
+    {
+      "id": "train_1078",
+      "category": "task_detail",
+      "user_input": "bao giờ cần trả tiền internet",
+      "expected_output": "Chi tiết công việc 'trả tiền internet'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "trả tiền internet"
+      }
+    },
+    {
+      "id": "train_1079",
+      "category": "deadline_management",
+      "user_input": "hạn trả tiền internet là bao giờ",
+      "expected_output": "Hạn của công việc 'trả tiền internet'.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "trả tiền internet"
+      }
+    },
+    {
+      "id": "train_1080",
+      "category": "task_detail",
+      "user_input": "cho tôi biết khi nào thanh toán thẻ",
+      "expected_output": "Chi tiết công việc 'thanh toán thẻ'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "thanh toán thẻ"
+      }
+    },
+    {
+      "id": "train_1081",
+      "category": "deadline_management",
+      "user_input": "công việc thanh toán thẻ hạn bao giờ",
+      "expected_output": "Hạn của công việc 'thanh toán thẻ'.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "thanh toán thẻ"
+      }
+    },
+    {
+      "id": "train_1082",
+      "category": "task_detail",
+      "user_input": "xem chi tiết việc thanh toán thẻ tín dụng",
+      "expected_output": "Chi tiết công việc 'thanh toán thẻ tín dụng'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "thanh toán thẻ tín dụng"
+      }
+    },
+    {
+      "id": "train_1083",
+      "category": "task_detail",
+      "user_input": "việc thanh toán thẻ tín dụng ngày nào làm",
+      "expected_output": "Chi tiết công việc 'thanh toán thẻ tín dụng'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "thanh toán thẻ tín dụng"
+      }
+    },
+    {
+      "id": "train_1084",
+      "category": "deadline_management",
+      "user_input": "thanh toán thẻ tín dụng còn hạn không",
+      "expected_output": "Hạn của công việc 'thanh toán thẻ tín dụng'.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "thanh toán thẻ tín dụng"
+      }
     }
   ],
   "test_data": [
@@ -10911,6 +11768,267 @@
       "intent": "task_upcoming",
       "entities": {
         "time": "ngày 26"
+      }
+    },
+    {
+      "id": "test_122",
+      "category": "create_task",
+      "user_input": "ngày 15 tôi phải đóng tiền điện",
+      "expected_output": "Đã tạo công việc 'đóng tiền điện'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đóng tiền điện",
+        "time": "ngày 15"
+      }
+    },
+    {
+      "id": "test_123",
+      "category": "create_task",
+      "user_input": "ngày 23 tôi cần thanh toán hóa đơn điện thoại",
+      "expected_output": "Đã tạo công việc 'thanh toán hóa đơn điện thoại'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "thanh toán hóa đơn điện thoại",
+        "time": "ngày 23"
+      }
+    },
+    {
+      "id": "test_124",
+      "category": "create_task",
+      "user_input": "tôi phải chuyển khoản tiền nhà ngày 16",
+      "expected_output": "Đã tạo công việc 'chuyển khoản tiền nhà'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "chuyển khoản tiền nhà",
+        "time": "ngày 16"
+      }
+    },
+    {
+      "id": "test_125",
+      "category": "create_task",
+      "user_input": "mai mình cần gửi báo cáo tiến độ",
+      "expected_output": "Đã tạo công việc 'gửi báo cáo tiến độ'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "gửi báo cáo tiến độ",
+        "time": "mai"
+      }
+    },
+    {
+      "id": "test_126",
+      "category": "create_task",
+      "user_input": "sáng mai nhớ đưa xe đi bảo dưỡng",
+      "expected_output": "Đã tạo công việc 'đưa xe đi bảo dưỡng'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đưa xe đi bảo dưỡng",
+        "time": "sáng mai"
+      }
+    },
+    {
+      "id": "test_127",
+      "category": "create_task",
+      "user_input": "tuần sau cần chuẩn bị hồ sơ xin việc",
+      "expected_output": "Đã tạo công việc 'chuẩn bị hồ sơ xin việc'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "chuẩn bị hồ sơ xin việc",
+        "time": "tuần sau"
+      }
+    },
+    {
+      "id": "test_128",
+      "category": "create_task",
+      "user_input": "18/05 tôi phải gọi cho nhà cung cấp",
+      "expected_output": "Đã tạo công việc 'gọi cho nhà cung cấp'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "gọi cho nhà cung cấp",
+        "time": "18/05"
+      }
+    },
+    {
+      "id": "test_129",
+      "category": "create_task",
+      "user_input": "7 giờ tối nay đặt vé máy bay",
+      "expected_output": "Đã tạo công việc 'đặt vé máy bay'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "đặt vé máy bay",
+        "time": "7 giờ tối"
+      }
+    },
+    {
+      "id": "test_130",
+      "category": "create_task",
+      "user_input": "ghi lại ngày 29 tái khám răng",
+      "expected_output": "Đã tạo công việc 'tái khám răng'.",
+      "intent": "create_task",
+      "entities": {
+        "task_name": "tái khám răng",
+        "time": "ngày 29"
+      }
+    },
+    {
+      "id": "test_131",
+      "category": "task_upcoming",
+      "user_input": "ngày 23 tôi còn việc nào",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày 23"
+      }
+    },
+    {
+      "id": "test_132",
+      "category": "task_upcoming",
+      "user_input": "ngày 16 có lịch gì không",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "ngày 16"
+      }
+    },
+    {
+      "id": "test_133",
+      "category": "task_upcoming",
+      "user_input": "mai lịch của tôi có gì",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "mai"
+      }
+    },
+    {
+      "id": "test_134",
+      "category": "task_upcoming",
+      "user_input": "tuần sau có những việc nào",
+      "expected_output": "Công việc sắp tới:",
+      "intent": "task_upcoming",
+      "entities": {
+        "time": "tuần sau"
+      }
+    },
+    {
+      "id": "test_135",
+      "category": "task_today",
+      "user_input": "hôm nay còn task nào chưa xong",
+      "expected_output": "Đây là công việc hôm nay:",
+      "intent": "task_today",
+      "entities": {
+        "time": "hôm nay"
+      }
+    },
+    {
+      "id": "test_136",
+      "category": "list_tasks",
+      "user_input": "cho tôi xem các việc đã hoàn thành",
+      "expected_output": "Đây là danh sách công việc của bạn:",
+      "intent": "list_tasks",
+      "entities": {
+        "status": "completed"
+      }
+    },
+    {
+      "id": "test_137",
+      "category": "update_task",
+      "user_input": "sửa tên 'bảo trì laptop' thành 'bảo trì macbook'",
+      "expected_output": "Đã cập nhật công việc 'bảo trì laptop'.",
+      "intent": "update_task",
+      "entities": {
+        "task_name": "bảo trì laptop"
+      }
+    },
+    {
+      "id": "test_138",
+      "category": "deadline_management",
+      "user_input": "dời hạn thanh toán hóa đơn thêm 1 ngày",
+      "expected_output": "Đã cập nhật hạn chót.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "thanh toán hóa đơn"
+      }
+    },
+    {
+      "id": "test_139",
+      "category": "general_help",
+      "user_input": "chỉ tôi cách quản lý việc bằng chatbot",
+      "expected_output": "Tôi có thể giúp: thêm/sửa/xóa task, nhắc nhở, thống kê. Bạn cần gì?",
+      "intent": "general_help",
+      "entities": {}
+    },
+    {
+      "id": "test_140",
+      "category": "bot_identity",
+      "user_input": "bot này dùng để làm gì",
+      "expected_output": "Tôi là chatbot quản lý công việc.",
+      "intent": "bot_identity",
+      "entities": {}
+    },
+    {
+      "id": "test_141",
+      "category": "sort_tasks",
+      "user_input": "sắp xếp task theo thời hạn gần nhất",
+      "expected_output": "Để tôi sắp xếp lại.",
+      "intent": "sort_tasks",
+      "entities": {}
+    },
+    {
+      "id": "test_142",
+      "category": "out_of_scope",
+      "user_input": "hôm nay giá vàng bao nhiêu",
+      "expected_output": "Xin lỗi, tôi chỉ hỗ trợ về quản lý công việc.",
+      "intent": "out_of_scope",
+      "entities": {}
+    },
+    {
+      "id": "test_143",
+      "category": "task_detail",
+      "user_input": "bao giờ hóa đơn thẻ tín dụng cần thanh toán",
+      "expected_output": "Chi tiết công việc 'hóa đơn thẻ tín dụng'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "hóa đơn thẻ tín dụng"
+      }
+    },
+    {
+      "id": "test_144",
+      "category": "deadline_management",
+      "user_input": "hóa đơn thẻ tín dụng đến hạn ngày nào",
+      "expected_output": "Hạn của công việc 'hóa đơn thẻ tín dụng'.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "hóa đơn thẻ tín dụng"
+      }
+    },
+    {
+      "id": "test_145",
+      "category": "task_detail",
+      "user_input": "khi nào tôi phải đóng tiền nước",
+      "expected_output": "Chi tiết công việc 'đóng tiền nước'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "đóng tiền nước"
+      }
+    },
+    {
+      "id": "test_146",
+      "category": "deadline_management",
+      "user_input": "hạn nộp báo cáo cuối kỳ là bao giờ",
+      "expected_output": "Hạn của công việc 'nộp báo cáo cuối kỳ'.",
+      "intent": "deadline_management",
+      "entities": {
+        "task_name": "nộp báo cáo cuối kỳ"
+      }
+    },
+    {
+      "id": "test_147",
+      "category": "task_detail",
+      "user_input": "cho tôi xem khi nào cần trả tiền internet",
+      "expected_output": "Chi tiết công việc 'trả tiền internet'.",
+      "intent": "task_detail",
+      "entities": {
+        "task_name": "trả tiền internet"
       }
     }
   ]

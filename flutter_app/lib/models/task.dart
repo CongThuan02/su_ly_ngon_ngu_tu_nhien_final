@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class Task {
   final String id;
   final String title;
@@ -24,5 +26,16 @@ class Task {
       isCompleted: json['is_completed'] ?? false,
       createdAt: json['created_at']?.toString(),
     );
+  }
+
+  DateTime? get dueDateTime {
+    if (dueTime == null || dueTime!.isEmpty) return null;
+    return DateTime.tryParse(dueTime!);
+  }
+
+  String get dueTimeLabel {
+    final date = dueDateTime;
+    if (date == null) return dueTime ?? '';
+    return DateFormat('dd/MM/yyyy HH:mm').format(date.toLocal());
   }
 }
